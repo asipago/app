@@ -1,0 +1,161 @@
+<!-- <ion-header no-border>
+
+  <ion-navbar transparent>
+    <button ion-button menuToggle icon-only color="light">
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title></ion-title>
+    <ion-buttons end *ngIf="notify">
+			<button ion-button icon-only color="light" (click)="viewPending()">
+			  <ion-icon name="ios-notifications-outline"></ion-icon>
+			</button>
+		</ion-buttons>
+  </ion-navbar>
+
+</ion-header> -->
+
+<ion-content>
+
+	<ion-grid text-center no-padding>
+		<ion-row>
+			<ion-col col-1>
+				<button ion-button menuToggle icon-only clear no-padding color="light">
+					<ion-icon name='menu'></ion-icon>
+				</button>
+			</ion-col>
+			<ion-col col-10>
+				<h4 ion-text color="light">RESUMEN</h4>
+			</ion-col>
+			<ion-col col-1>
+				<button ion-button icon-only clear no-padding color="light" class="notify-button"
+					(click)="viewPending()" *ngIf="notify">
+					<ion-icon name="ios-notifications-outline"></ion-icon>
+				</button>
+			</ion-col>
+		</ion-row>
+
+		<ion-row ion-text>
+			<ion-col color="light">
+				<div></div>
+			</ion-col>
+		</ion-row>
+
+		<ion-row>
+			<ion-col>
+				<h4 ion-text color="light">{{ accountName | uppercase }}</h4>
+			</ion-col>
+		</ion-row>
+
+		<ion-row class="chart" align-items-center>
+			<ion-col>
+				<div #chartTarget></div>
+			</ion-col>
+		</ion-row>
+
+		<ion-row align-items-center padding>
+			<ion-col>
+				<h1 ion-text color="light" no-margin>
+					<b>{{ funds - withheld | currency:'&nbsp;':'code':'1.2-2':'es' }}<span>{{ currencySymbol | uppercase }}</span></b>
+				</h1>
+				<p ion-text color="light" no-margin><b>DISPONIBLE</b></p>
+			</ion-col>
+		</ion-row>
+
+		<ion-row align-items-center>
+			<ion-col col-xs-12 col-md-6>
+				<h4 ion-text color="light" no-margin>
+					{{ funds | currency:'&nbsp;':'code':'1.2-2':'es' }}<span>{{ currencySymbol | uppercase }}</span>
+				</h4>
+				<p ion-text color="light" no-margin><b>FONDOS</b></p>
+			</ion-col>
+
+			<ion-col col-xs-12 col-md-6>
+				<h4 ion-text color="light" no-margin>
+					{{ withheld | currency:'&nbsp;':'code':'1.2-2':'es' }}<span>{{ currencySymbol | uppercase }}</span>
+				</h4>
+				<p ion-text color="light" no-margin><b>DIFERIDO</b></p>
+			</ion-col>
+		</ion-row>
+
+		<ion-row align-items-center *ngIf="bigScreen">
+			<ion-col>
+				<p></p>
+			</ion-col>
+		</ion-row>
+
+		<ion-row align-items-center class="elements" *ngIf="!bigScreen">
+			<ion-col col-4 align-self-start>
+				<button ion-button clear no-padding color="dark" (click)="openPage('ReceiveMoneyPage')">
+					<div>
+						<div>
+							<ion-icon name="md-arrow-down"></ion-icon>
+						</div>
+						<label class="small">RECIBIR</label>
+					</div>
+				</button>
+			</ion-col>
+			<ion-col col-4 align-self-start>
+				<button ion-button clear no-padding color="dark" (click)="openPage('SendMoneyScannerPage', true)">
+					<div>
+						<div>
+							<ion-icon name="md-qr-scanner"></ion-icon>
+						</div>
+						<label class="small">ESCANEAR</label>
+					</div>
+				</button>
+			</ion-col>
+			<ion-col col-4 align-self-start>
+				<button ion-button clear no-padding color="dark" (click)="openPage('SendMoneyPage')">
+					<div>
+						<div>
+							<ion-icon name="md-arrow-up"></ion-icon>
+						</div>
+						<label class="small">ENVIAR</label>
+					</div>
+				</button>
+			</ion-col>
+		</ion-row>
+
+	</ion-grid>
+
+	<ion-footer no-border *ngIf="bigScreen">
+		<ion-toolbar color="light">
+			<ion-grid text-center>
+				<ion-row align-items-center>
+					<ion-col col-4 align-self-start>
+						<button ion-button clear no-padding color="dark" (click)="openPage('ReceiveMoneyPage')">
+							<div>
+								<div>
+									<ion-icon name="md-arrow-down"></ion-icon>
+								</div>
+								<label class="small">RECIBIR</label>
+							</div>
+						</button>
+					</ion-col>
+					<ion-col col-4 align-self-start>
+						<button ion-button clear no-padding color="dark"
+							(click)="openPage('SendMoneyScannerPage', true)">
+							<div>
+								<div>
+									<ion-icon name="md-qr-scanner"></ion-icon>
+								</div>
+								<label class="small">ESCANEAR</label>
+							</div>
+						</button>
+					</ion-col>
+					<ion-col col-4 align-self-start>
+						<button ion-button clear no-padding color="dark" (click)="openPage('SendMoneyPage')">
+							<div>
+								<div>
+									<ion-icon name="md-arrow-up"></ion-icon>
+								</div>
+								<label class="small">ENVIAR</label>
+							</div>
+						</button>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</ion-toolbar>
+	</ion-footer>
+
+</ion-content>

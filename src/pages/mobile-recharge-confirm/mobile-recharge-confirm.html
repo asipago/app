@@ -1,0 +1,53 @@
+<ion-header no-border>
+	<ion-navbar transparent [class.hide-text]="smallScreen">
+		<ion-title>
+			<h4>Recarga de Saldo</h4>
+			<h5>Telefonía Móvil</h5>
+		</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+	<ion-grid text-center>
+
+		<ion-row align-items-center>
+			<ion-col>
+				<img width="180" src="assets/imgs/carriers/{{ carrier }}.png" />
+			</ion-col>
+		</ion-row>
+
+		<ion-row align-items-center>
+			<ion-col>
+
+				<ion-list>
+
+					<ion-item no-lines>
+						<p>Número:</p>
+						<h1 ion-text color="secondary">{{ number }}</h1>
+					</ion-item>
+
+					<ion-item no-lines>
+						<p>Monto:</p>
+						<h1 ion-text color="secondary">{{ amount | currency:currencySymbol:'code':'1.2-2':'es' }}</h1>
+					</ion-item>
+
+					<ion-item no-lines>
+						<p>Operadora:</p>
+						<p ion-text color="secondary">{{ carrier.toUpperCase() }}</p>
+					</ion-item>
+
+				</ion-list>
+
+			</ion-col>
+		</ion-row>
+
+		<ion-row justify-content-center>
+			<ion-col align-self-center>
+				<button ion-button block color="primary" (click)="confirm()">CONFIRMAR Y RECARGAR</button>
+			</ion-col>
+		</ion-row>
+
+	</ion-grid>
+
+</ion-content>

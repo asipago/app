@@ -1,0 +1,22 @@
+<ion-header no-border>
+  <ion-navbar transparent>
+    <ion-title>MONEDA</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+	<ion-list padding-top>
+
+    <button ion-item clear (click)="setCurrency('VEF')">
+      <ion-icon name='md-cash' item-start></ion-icon> VEF - Bolivares (Bs)
+    </button>
+
+    <button ion-item clear no-lines (click)="setCurrency('USD')">
+      <ion-icon name='ios-cash' item-start></ion-icon> USD - Dolares ($)
+    </button>
+
+	</ion-list>
+
+</ion-content>

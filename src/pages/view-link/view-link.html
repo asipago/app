@@ -1,0 +1,39 @@
+<ion-content padding>
+
+	<ion-grid text-center>
+
+	  <ion-row align-items-center>
+	    <ion-col>
+	      <h4>ENLACE DE PAGO</h4>
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row align-items-center>
+	    <ion-col>
+
+			<ion-list>
+
+			  <ion-item text-center no-lines *ngIf="qrCode" no-margin>
+					<ngx-qrcode no-margin [(qrc-value)]="qrCode"></ngx-qrcode>
+					<p ion-text text-wrap color="secondary">https://asipago.com/enlace/{{ code }}</p>
+			  </ion-item>
+
+			  <ion-item text-center no-lines margin-top>
+			    <p>Protegido:</p>
+			    <p ion-text [color]="secure ? 'secondary' : 'danger'">{{ secure ? "SI" : "NO" }}</p>
+			  </ion-item>
+
+			</ion-list>
+
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row justify-content-center>
+	    <ion-col align-self-center>
+	      <button ion-button block color="dark" (click)="goBack()">CERRAR</button>
+	    </ion-col>
+	  </ion-row>
+
+	</ion-grid>
+
+</ion-content>

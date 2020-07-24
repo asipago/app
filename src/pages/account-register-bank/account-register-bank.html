@@ -1,0 +1,72 @@
+<ion-content no-padding no-margin>
+
+	<div text-center class="main-header">
+		<div>
+			<button ion-button icon-only clear menuToggle color="light">
+				<ion-icon name="menu"></ion-icon>
+			</button>
+			<h4 ion-text no-margin color="light">
+				<small>NUEVA</small><br />
+				CUENTA BANCARIA
+			</h4>
+			<button ion-button icon-only clear color="light" class="hidden">
+				<ion-icon name="menu"></ion-icon>
+			</button>
+		</div>
+	</div>
+
+	<form [formGroup]="mainForm" (ngSubmit)="registerAccount()">
+
+		<ion-grid text-center>
+
+			<ion-row justify-content-center>
+				<ion-col align-self-center>
+
+					<ion-list>
+
+						<ion-item>
+							<!-- <ion-label>Banco</ion-label> -->
+							<ion-select [(ngModel)]="selectedBank" [ngModelOptions]="{standalone: true}"
+								(ionChange)="onSelectChange($event)" interface="action-sheet" cancelText="Cancelar">
+								<ion-option disabled selected>Banco</ion-option>
+								<ion-option *ngFor="let bank of banks" [value]="bank">
+									{{ bank.name }}
+								</ion-option>
+							</ion-select>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Cuenta</ion-label>
+							<ion-input type="tel" formControlName="account"></ion-input>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Tipo</ion-label>
+							<ion-select formControlName="type" interface="popover">
+								<ion-option value="S">{{ currentCurrency == 'USD' ? 'Saving' : 'Ahorro' }}</ion-option>
+								<ion-option value="C">{{ currentCurrency == 'USD' ? 'Checking' : 'Corriente' }}</ion-option>
+							</ion-select>
+						</ion-item>
+
+						<ion-item *ngIf="currentCurrency == 'USD'">
+							<ion-label floating>Correo Zelle</ion-label>
+							<ion-input type="email" formControlName="email"></ion-input>
+						</ion-item>
+
+					</ion-list>
+
+				</ion-col>
+			</ion-row>
+
+			<ion-row justify-content-center>
+				<ion-col align-self-center>
+					<button ion-button block color="primary" type="submit"
+						[disabled]="!mainForm.valid">REGISTRAR</button>
+				</ion-col>
+			</ion-row>
+
+		</ion-grid>
+
+	</form>
+
+</ion-content>

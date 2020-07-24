@@ -1,0 +1,79 @@
+<ion-content no-padding no-margin>
+
+  <div text-center class="main-header">
+    <div>
+      <button ion-button icon-only clear menuToggle color="light">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+	  <h4 ion-text no-margin color="light">
+		  <small>DISPONIBLE</small><br/>
+		  {{ availableFunds | currency:currencySymbol:'code':'1.2-2':'es' }}
+	  </h4>
+      <button ion-button icon-only clear color="light" class="hidden">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </div>
+  </div>
+
+	<form [formGroup]="mainForm" (ngSubmit)="checkTransaction()">
+
+		<ion-grid text-center>
+
+		  <ion-row align-items-center>
+		    <ion-col>
+		      <h4>ENVIAR FONDOS</h4>
+		    </ion-col>
+		  </ion-row>
+
+		  <ion-row align-items-center>
+		    <ion-col>
+
+					<ion-list>
+
+						<ion-item *ngIf="userWallet">
+							<ion-label>¿Enlace de Pago?</ion-label>
+							<ion-toggle color="primary" checked="false" (ionChange)="onSelectChange($event)" [(ngModel)]="isLink" [ngModelOptions]="{standalone: true}" [disabled]="isDisabled"></ion-toggle>
+						</ion-item>
+
+					  <ion-item *ngIf="!isLink">
+					    <ion-label floating>Para:</ion-label>
+					    <ion-input type="text" formControlName="username"></ion-input>
+					    <button type="button" ion-button icon-only clear item-end [disabled]="isDisabled" (click)="showContacts()">
+					    	<ion-icon name="search"></ion-icon>
+					    </button>
+					  </ion-item>
+
+					  <ion-item>
+					    <ion-label floating>Monto:</ion-label>
+					    <ion-input type="tel" formControlName="amount" NumericMask></ion-input>
+					  </ion-item>
+
+					  <ion-item>
+					    <ion-label floating>Descripción:</ion-label>
+					    <ion-input class="no-transform" type="text" formControlName="description"></ion-input>
+					  </ion-item>
+
+					  <ion-item *ngIf="isLink">
+					    <ion-label>Solicitar PIN:</ion-label>
+					    <ion-toggle color="primary" checked="true" [(ngModel)]="secure" [ngModelOptions]="{standalone: true}" [disabled]="isDisabled"></ion-toggle>
+					  </ion-item>
+
+					</ion-list>
+
+		    </ion-col>
+		  </ion-row>
+
+		  <ion-row justify-content-center>
+		    <ion-col align-self-center>
+		      <button ion-button block color="primary" type="submit" [disabled]="!mainForm.valid && isDisabled">ENVIAR</button>
+	        <div *ngIf="isDisabled">
+	        	<p ion-text color="danger"><small>No posee fondos suficientes</small></p>
+	        </div>
+		    </ion-col>
+		  </ion-row>
+
+		</ion-grid>
+
+	</form>
+
+</ion-content>

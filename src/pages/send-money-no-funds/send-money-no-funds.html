@@ -1,0 +1,36 @@
+<ion-content padding>
+
+	<ion-grid text-center>
+
+		<ion-row align-items-center>
+			<ion-col>
+				<img class="title-image" src="assets/imgs/send-money-no-funds.png" width="100" height="100" /><br />
+				<h4>Fondos Disponibles</h4>
+				<h5 ion-text color="secondary">{{ availableFunds | currency:currencySymbol:'code':'1.2-2':'es' }}</h5>
+			</ion-col>
+		</ion-row>
+
+		<ion-row align-items-center>
+			<ion-col>
+				<p ion-text text-center color="secondary">
+					Se ha quedado sin fondos, por favor ingrese otra cantidad o recargue su cuenta
+				</p>
+			</ion-col>
+		</ion-row>
+
+		<ion-row justify-content-center>
+			<ion-col align-self-center>
+			</ion-col>
+		</ion-row>
+
+		<ion-row justify-content-center>
+			<ion-col align-self-center>
+				<button ion-button block color="primary" (click)="openPage('AccountRechargePage')">RECARGAR
+					CUENTA</button>
+				<button ion-button block color="dark" (click)="openPage('SendMoneyPage')">VOLVER</button>
+			</ion-col>
+		</ion-row>
+
+	</ion-grid>
+
+</ion-content>

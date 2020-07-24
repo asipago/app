@@ -1,0 +1,32 @@
+<ion-header no-border>
+  <ion-navbar transparent>
+    <ion-title>CUENTA CREADA</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+	<ion-grid text-center>
+
+	  <ion-row align-items-center>
+	    <ion-col>
+	    	<p text-wrap>Hemos enviado un correo para validar tu cuenta, una vez verificada podras entrar.</p>
+	    </ion-col>
+	  </ion-row>
+	    
+	  <ion-row justify-content-center>
+	    <ion-col text-center>
+	    	<p tappable (click)="showSmsValidation()"><u>Validar mi cuenta vía SMS</u></p>
+	    </ion-col>
+	  </ion-row>
+	    
+	  <ion-row justify-content-center>
+	    <ion-col text-center>
+	    	<p tappable (click)="goHome()"><u>Iniciar Sesión</u></p>
+	    </ion-col>
+	  </ion-row>
+
+	</ion-grid>
+
+</ion-content>

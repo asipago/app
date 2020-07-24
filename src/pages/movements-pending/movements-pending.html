@@ -1,0 +1,36 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>
+      <h4>PAGOS PENDIENTES</h4>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-grid text-center>
+
+    <ion-row justify-content-center>
+      <ion-col align-self-center>
+
+        <ion-list>
+          <ion-item *ngFor="let link of links" tappable (click)="viewLink(link)">
+            <ion-avatar item-start>
+              <img [src]="link.avatar">
+            </ion-avatar>
+            <p>{{ link.amount | currency:currencySymbol:'code':'1.2-2':'es' }}</p>
+            <p><small>{{ link.createdAt }}</small></p>
+            <p ion-text color="green" *ngIf="link.secure"><small>ENLACE PROTEGIDO</small></p>
+            <p>{{ link.concept }}</p>
+          </ion-item>
+        </ion-list>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

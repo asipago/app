@@ -1,0 +1,26 @@
+page-account-login {
+	.item-md.item-label-floating [item-end] {
+		align-self: flex-end;
+	}
+	
+	ion-content {
+    	background: linear-gradient(45deg,rgba(9,211,187,.5) 0,rgba(9,211,187,0) 70%),linear-gradient(135deg,rgba(6,168,249,.5) 10%,rgba(6,168,249,0) 80%),linear-gradient(225deg,rgba(10,214,187,.5) 10%,rgba(10,214,187,0) 80%),linear-gradient(315deg,rgba(1,129,208,.5) 100%,rgba(1,129,208,0) 70%);
+    	background-image: url(../assets/imgs/headermail.jpg);
+    	background-size: 200% 100%;
+    	ion-grid {
+			position: absolute;
+    		bottom: 0;
+			left: 0;
+			right: 0;
+    	}
+		form {
+			background-color: #fff;
+			border-radius: 5px 5px 0 0;
+			margin: 0 5px -5px 5px;
+		}
+		img.logo {
+			min-width: 6rem;
+			max-width: 20rem;
+		}
+	}
+}

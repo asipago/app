@@ -1,0 +1,80 @@
+<ion-content no-padding>
+
+	<ion-grid text-center>
+
+		<ion-row align-items-center>
+			<ion-col>
+				<img class="logo animated slideInDown" src="assets/imgs/logo-b.png" />
+			</ion-col>
+		</ion-row>
+
+		<ion-row align-items-center>
+			<ion-col no-padding>
+				<form class="animated fadeInUp" [formGroup]="mainForm" (ngSubmit)="login('form')">
+					<ion-row justify-content-center>
+						<ion-col align-self-center no-paddgin>
+
+							<ion-list>
+
+								<ion-item *ngIf="!authFingerprint">
+									<ion-label floating>Usuario</ion-label>
+									<ion-input type="text" formControlName="username"></ion-input>
+								</ion-item>
+
+								<ion-item>
+									<ion-label floating>Contraseña</ion-label>
+									<ion-input class="no-transform" type="{{ type }}" formControlName="password"></ion-input>
+									<button *ngIf="!showPass" ion-button icon-only clear color="dark" type="button"
+										item-end (click)="showPassword()">
+										<ion-icon name="ios-eye-off-outline"></ion-icon>
+									</button>
+									<button *ngIf="showPass" ion-button icon-only clear color="dark" type="button"
+										item-end (click)="showPassword()">
+										<ion-icon name="ios-eye-outline"></ion-icon>
+									</button>
+								</ion-item>
+
+								<!-- BUG: This is needed -->
+								<p></p>
+
+							</ion-list>
+
+						</ion-col>
+					</ion-row>
+
+					<ion-row justify-content-center margin-top>
+						<ion-col align-self-center>
+							<button ion-button block color="turquoise" type="submit"
+								[disabled]="!mainForm.valid || isLoading">Iniciar Sesión</button>
+						</ion-col>
+					</ion-row>
+
+					<ion-row justify-content-center margin-top *ngIf="authFingerprint">
+						<ion-col align-self-center text-center>
+							<button ion-button icon-only clear color="turquoise" (click)="checkFingerprint()">
+								<ion-icon name="ios-finger-print"></ion-icon>
+							</button>
+						</ion-col>
+					</ion-row>
+
+					<ion-row justify-content-center [hidden]="keyboard.isOpen()">
+						<ion-col align-self-center>
+							¿Aún no tienes tu cuenta?<br />
+							<button ion-button clear color="gray" type="button" (click)="register()">CREA UNA AHORA</button>
+						</ion-col>
+					</ion-row>
+
+					<ion-row justify-content-center [hidden]="keyboard.isOpen()">
+						<ion-col align-self-center>
+							¿Olvidaste tu contraseña?<br />
+							<button ion-button clear color="gray" type="button" (click)="forgot()">RECUPERA EL ACCESO</button>
+						</ion-col>
+					</ion-row>
+				</form>
+
+			</ion-col>
+		</ion-row>
+
+	</ion-grid>
+
+</ion-content>

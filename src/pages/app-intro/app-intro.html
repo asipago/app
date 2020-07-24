@@ -1,0 +1,67 @@
+<ion-content no-margin no-padding>
+
+	<div class="loader" *ngIf="isLoading">
+		<ion-grid text-center>
+			<ion-row align-items-center>
+				<ion-col>
+					<img class="logo" src="assets/imgs/logo-b.png" />
+					<p ion-text color="light">tu dinero siempre en tus manos</p>
+					<ion-spinner color="light" name="bubbles"></ion-spinner>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+
+	<div class="intro">
+		<ion-slides centeredSlides>
+		
+			<ion-slide padding>
+				<img src="assets/imgs/intro-1.png" />
+				<h2 ion-text color="dark">Envia y Recibe Dinero</h2>
+				<h4>donde y cuando quieras<br/>de forma facil y segura</h4>
+			</ion-slide>
+		
+			<ion-slide padding>
+				<img src="assets/imgs/intro-2.png" />
+				<h2 ion-text color="dark">Solo Debitamos el 1%</h2>
+				<h4>en las transaciones entrantes</h4>
+			</ion-slide>
+		
+			<ion-slide padding>
+				<img src="assets/imgs/intro-3.png" />
+				<h2 ion-text color="dark">Suscripcion Gratuita</h2>
+				<h4 text-wrap>no cobramos suscripcion, ni mensualidad, ni exigimos monto minimo de transsaciones</h4>
+			</ion-slide>
+		
+		</ion-slides>
+
+		<ion-grid no-padding>
+			<ion-row *ngIf="!slides.isEnd()">
+				<ion-col col-4 text-left>
+					<button ion-button clear color="dark" (click)="goToHome()">OMITIR</button>
+				</ion-col>
+				<ion-col col-4 text-center>
+					<button ion-button icon-only clear class="pager" color="dark">
+						<ion-icon [name]="slides.isBeginning() ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+					</button>
+					<button ion-button icon-only clear class="pager" color="dark">
+						<ion-icon [name]="!slides.isBeginning() ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+					</button>
+				</ion-col>
+				<ion-col col-4 text-right>
+					<button ion-button clear icon-end color="primary" (click)="nextSlide()">
+						SIGUIENTE <ion-icon name="ios-arrow-forward"></ion-icon>
+					</button>
+				</ion-col>
+			</ion-row>
+			<ion-row *ngIf="slides.isEnd()">
+				<ion-col class="padding">
+					<button ion-button block icon-end color="primary" (click)="goToHome()">
+						EMPECEMOS <ion-icon name="ios-arrow-forward"></ion-icon>
+					</button>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+
+</ion-content>

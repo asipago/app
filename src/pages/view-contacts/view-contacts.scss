@@ -1,0 +1,21 @@
+page-view-contacts {
+	ion-buttons button[icon-only].navbar-modal {
+		margin: 0 6px;
+		min-width: 36px;
+	}
+	ion-spinner * {
+		position: fixed;
+		z-index: 999;
+		height: 5em;
+		width: em;
+		overflow: show;
+		margin: auto;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+	}
+	.toolbar-ios ion-title {
+		top: 3.5rem;
+	}
+}

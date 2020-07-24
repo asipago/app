@@ -1,0 +1,66 @@
+<ion-content padding>
+
+	<ion-grid text-center>
+
+	  <ion-row align-items-center>
+	    <ion-col>
+	      <h4>¡CUENTA POR COBRAR GENERADA!</h4>
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row align-items-center>
+	    <ion-col>
+
+			<ion-list>
+
+			  <ion-item no-lines *ngIf="!isLink">
+			    <p>Solicitar fondos a:</p>
+			    <p ion-text color="secondary">{{ username }}</p>
+			  </ion-item>
+
+			  <ion-item no-lines>
+			    <p>Monto:</p>
+			    <h1 ion-text color="secondary">{{ amount | currency:currencySymbol:'code':'1.2-2':'es' }}</h1>
+			  </ion-item>
+
+			  <ion-item no-lines>
+			    <p>Usted recibirá:</p>
+			    <p ion-text color="secondary">{{ finalAmount | currency:currencySymbol:'code':'1.2-2':'es' }}</p>
+			  </ion-item>
+
+			  <ion-item no-lines>
+			    <p>Descripción:</p>
+			    <p ion-text color="secondary">{{ description }}</p>
+			  </ion-item>
+
+			  <ion-item no-lines>
+			    <p>PIN:</p>
+			    <p ion-text color="secondary">{{ pin }}</p>
+			  </ion-item>
+
+			</ion-list>
+
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row justify-content-center *ngIf="isLink">
+	    <ion-col align-self-center col-md-12 col-lg-4>
+	      <button ion-button block color="primary" (click)="shareLink()">COMPARTIR</button>
+	    </ion-col>
+	    <ion-col align-self-center col-md-12 col-lg-4>
+	      <button ion-button block color="turquoise-light" (click)="viewLink()">VER ENLACE</button>
+	    </ion-col>
+	    <ion-col align-self-center col-md-12 col-lg-4>
+	      <button ion-button block color="dark" (click)="goHome()">CERRAR</button>
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row justify-content-center *ngIf="!isLink">
+	    <ion-col align-self-center col-12>
+	      <button ion-button block color="dark" (click)="goHome()">CERRAR</button>
+	    </ion-col>
+	  </ion-row>
+
+	</ion-grid>
+
+</ion-content>

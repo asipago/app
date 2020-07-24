@@ -1,0 +1,38 @@
+page-app-forgot {
+	ion-header ion-navbar {
+		height: inherit;
+		min-height: 55px !important;
+		background: none;
+		border-radius: 0 !important;
+
+		.toolbar-title {
+			font-size: 1.5rem;
+		}
+
+		span.back-button-text {
+			display: none;
+		}
+
+		@media screen and (min-width: 420px) {
+			.toolbar-title {
+				font-size: 2rem;
+			}
+
+			span.back-button-text {
+				display: flex;
+			}
+		}
+    }
+    
+    img.logo {
+		width: 180px;
+	}
+
+	.item-md.item-label-floating [item-end] {
+		align-self: flex-end;
+	}
+	
+	ion-input {
+		border-bottom: 1px solid color($colors, gray-light, base);
+	}
+}

@@ -1,0 +1,333 @@
+<ion-header no-border *ngIf="bigScreen">
+  <ion-navbar color="primary">
+    <ion-title>{{ slideTitle }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+	<p *ngIf="!bigScreen">{{ slideTitle }}</p>
+
+ 	<ion-slides>
+
+	  <ion-slide>
+
+			<ion-grid text-center>
+
+				<ion-row>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="oldPinCode[0] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="oldPinCode[1] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="oldPinCode[2] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="oldPinCode[3] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="oldPinCode[4] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="oldPinCode[5] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+				</ion-row>
+
+				<ion-row>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!oldPinEnabled" (click)="add('1')">1</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!oldPinEnabled" (click)="add('2')">2</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!oldPinEnabled" (click)="add('3')">3</button>
+					</ion-col>
+				</ion-row>
+
+				<ion-row>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!oldPinEnabled" (click)="add('4')">4</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!oldPinEnabled" (click)="add('5')">5</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!oldPinEnabled" (click)="add('6')">6</button>
+					</ion-col>
+				</ion-row>
+
+				<ion-row>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!oldPinEnabled" (click)="add('7')">7</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!oldPinEnabled" (click)="add('8')">8</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!oldPinEnabled" (click)="add('9')">9</button>
+					</ion-col>
+				</ion-row>
+
+				<ion-row>
+					<ion-col align-self-center col-4></ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!oldPinEnabled" (click)="add('0')">0</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+				    <button ion-button icon-only clear color="dark" [disabled]="oldPinCode.length == 0" (click)="delete()">
+				      <ion-icon name='backspace'></ion-icon>
+				    </button>
+					</ion-col>	
+				</ion-row>
+
+			  <ion-row justify-content-center margin-top>
+			    <ion-col align-self-center>
+			      <button ion-button block color="dark" (click)="cancel()">CANCELAR</button>
+			    </ion-col>
+			    <ion-col align-self-center>
+			      <button ion-button block type="submit" color="primary" [disabled]="oldPinEnabled" (click)="checkPin()">CONTINUAR</button>
+			    </ion-col>
+			  </ion-row>
+
+			</ion-grid>
+
+	  </ion-slide>
+
+	  <ion-slide>
+
+			<ion-grid text-center>
+
+				<ion-row>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="newPinCode[0] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="newPinCode[1] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="newPinCode[2] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="newPinCode[3] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="newPinCode[4] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="newPinCode[5] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+				</ion-row>
+
+				<ion-row>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!newPinEnabled" (click)="add('1')">1</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!newPinEnabled" (click)="add('2')">2</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!newPinEnabled" (click)="add('3')">3</button>
+					</ion-col>
+				</ion-row>
+
+				<ion-row>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!newPinEnabled" (click)="add('4')">4</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!newPinEnabled" (click)="add('5')">5</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!newPinEnabled" (click)="add('6')">6</button>
+					</ion-col>
+				</ion-row>
+
+				<ion-row>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!newPinEnabled" (click)="add('7')">7</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!newPinEnabled" (click)="add('8')">8</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!newPinEnabled" (click)="add('9')">9</button>
+					</ion-col>
+				</ion-row>
+
+				<ion-row>
+					<ion-col align-self-center col-4></ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!newPinEnabled" (click)="add('0')">0</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+				    <button ion-button icon-only clear color="dark" [disabled]="newPinCode.length == 0" (click)="delete()">
+				      <ion-icon name='backspace'></ion-icon>
+				    </button>
+					</ion-col>	
+				</ion-row>
+
+			  <ion-row justify-content-center margin-top>
+			    <ion-col align-self-center>
+			      <button ion-button block color="dark" (click)="cancel()">CANCELAR</button>
+			    </ion-col>
+			    <ion-col align-self-center>
+			      <button ion-button block type="submit" color="primary" [disabled]="newPinEnabled" (click)="confirmPin()">CONFIRMAR</button>
+			    </ion-col>
+			  </ion-row>
+
+			</ion-grid>
+
+	  </ion-slide>
+
+	  <ion-slide>
+
+			<ion-grid text-center>
+
+				<ion-row>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="conPinCode[0] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="conPinCode[1] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="conPinCode[2] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="conPinCode[3] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="conPinCode[4] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+					<ion-col col-2>
+				    <button ion-button icon-only clear class="pin-code" color="dark">
+				      <ion-icon [name]="conPinCode[5] ? 'ios-radio-button-on' : 'ios-radio-button-off'"></ion-icon>
+				    </button>
+					</ion-col>
+				</ion-row>
+
+				<ion-row>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!conPinEnabled" (click)="add('1')">1</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!conPinEnabled" (click)="add('2')">2</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!conPinEnabled" (click)="add('3')">3</button>
+					</ion-col>
+				</ion-row>
+
+				<ion-row>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!conPinEnabled" (click)="add('4')">4</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!conPinEnabled" (click)="add('5')">5</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!conPinEnabled" (click)="add('6')">6</button>
+					</ion-col>
+				</ion-row>
+
+				<ion-row>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!conPinEnabled" (click)="add('7')">7</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!conPinEnabled" (click)="add('8')">8</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!conPinEnabled" (click)="add('9')">9</button>
+					</ion-col>
+				</ion-row>
+
+				<ion-row>
+					<ion-col align-self-center col-4></ion-col>
+					<ion-col align-self-center col-4>
+						<button ion-button outline color="dark" class="pin-button" [disabled]="!conPinEnabled" (click)="add('0')">0</button>
+					</ion-col>
+					<ion-col align-self-center col-4>
+				    <button ion-button icon-only clear color="dark" [disabled]="conPinCode.length == 0" (click)="delete()">
+				      <ion-icon name='backspace'></ion-icon>
+				    </button>
+					</ion-col>	
+				</ion-row>
+
+			  <ion-row justify-content-center margin-top>
+			    <ion-col align-self-center>
+			      <button ion-button block color="dark" (click)="cancel()">CANCELAR</button>
+			    </ion-col>
+			    <ion-col align-self-center>
+			      <button ion-button block type="submit" color="primary" [disabled]="conPinEnabled" (click)="updatePin()">CONFIRMAR</button>
+			    </ion-col>
+			  </ion-row>
+
+			  <ion-row justify-content-center *ngIf="confirmError">
+			    <ion-col align-self-center>
+			      <p ion-text color="danger">El PIN no coincide</p>
+			    </ion-col>
+			  </ion-row>
+
+			</ion-grid>
+
+	  </ion-slide>
+
+	  <ion-slide>
+			<ion-grid text-center>
+
+			  <ion-row justify-content-center>
+			    <ion-col align-self-center>
+				    <img src="assets/imgs/app-settings-pin.png" width="100" height="100" /><br/>
+				  </ion-col>
+				</ion-row>
+
+			  <ion-row justify-content-center margin-top margin-bottom>
+			    <ion-col align-self-center>
+			      <button ion-button block color="primary" (click)="cancel()">ACEPTAR</button>
+			    </ion-col>
+			  </ion-row>
+
+			</ion-grid>
+	  </ion-slide>
+
+	</ion-slides>
+
+</ion-content>

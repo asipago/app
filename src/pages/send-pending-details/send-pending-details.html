@@ -1,0 +1,70 @@
+<ion-content no-padding no-margin>
+
+  <div text-center class="main-header">
+    <div>
+      <button ion-button clear icon-only color="ligth" (click)="dismiss()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+	  <h4 ion-text no-margin color="light">
+		  <small>DETALLES DE</small><br/>
+		  CUENTA POR PAGAR
+	  </h4>
+      <button ion-button icon-only clear color="light" class="hidden">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </div>
+  </div>
+
+	<ion-grid text-center>
+
+	  <ion-row align-items-center>
+	    <ion-col>
+
+			<ion-list>
+
+			  <ion-item no-lines>
+			    <p>Monto:</p>
+			    <h1 ion-text color="dark">{{ link.amount | currency:currencySymbol:'code':'1.2-2':'es' }}</h1>
+			  </ion-item>
+
+			  <ion-item no-lines>
+			    <p>Destinatario recibira:</p>
+			    <p ion-text color="dark">{{ link.finalAmount | currency:currencySymbol:'code':'1.2-2':'es' }}</p>
+			  </ion-item>
+
+			  <ion-item no-lines>
+			    <p>Descripción:</p>
+			    <p ion-text color="dark">{{ link.description }}</p>
+			  </ion-item>
+
+			  <ion-item no-lines *ngIf="link.owner">
+			    <p>PIN:</p>
+			    <p ion-text color="dark">{{ link.pin }}</p>
+			  </ion-item>
+
+			</ion-list>
+
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row justify-content-center *ngIf="link.owner">
+	    <ion-col align-self-center col-sm-6 col-md-12 col-lg-4>
+	      <button ion-button block color="primary" (click)="shareLink()">COMPARTIR</button>
+	    </ion-col>
+	    <ion-col align-self-center col-sm-6 col-md-12 col-lg-4>
+	      <button ion-button block color="dark" (click)="viewLink()">VER ENLACE</button>
+	    </ion-col>
+	    <ion-col align-self-center col-md-12 col-lg-4>
+	      <button ion-button block color="danger" (click)="removeLink()">ELIMINAR</button>
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row justify-content-center *ngIf="!link.owner">
+	    <ion-col align-self-center col-12>
+	      <button ion-button block color="primary" (click)="processLink()">PAGAR</button>
+	    </ion-col>
+	  </ion-row>
+
+	</ion-grid>
+
+</ion-content>

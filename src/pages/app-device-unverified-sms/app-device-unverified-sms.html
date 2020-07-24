@@ -1,0 +1,40 @@
+<ion-header no-border>
+  <ion-navbar transparent>
+    <ion-title>REGISTRO</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+	<ion-grid text-center>
+
+	  <ion-row align-items-center>
+	    <ion-col>
+				<img class="logo" src="assets/imgs/logo-b-color.png" />
+				<p *ngIf="sendError">Por favor verifica tu conexión a internet e intenta de nuevo</p>
+	      <p *ngIf="!sendError">Ingresa el codigo de seguridad que hemos enviado al número registrado</p>
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row align-items-center *ngIf="!sendError">
+	    <ion-col>
+	    	<ion-input text-center type="tel" [(ngModel)]="validationCode" placeholder="******"></ion-input>
+	    </ion-col>
+	  </ion-row>
+	    
+	  <ion-row justify-content-center *ngIf="canResend && !sendError">
+	    <ion-col text-center>
+	    	<p tappable (click)="sendCode()"><u>Reenviar C&oacute;digo</u></p>
+	    </ion-col>
+	  </ion-row>
+    
+	  <ion-row justify-content-center>
+	    <ion-col align-self-center>
+	      <button ion-button block color="dark" (click)="sendCode()" *ngIf="sendError">ENVIAR CODIGO</button>
+	      <button ion-button block color="dark" (click)="validate()" *ngIf="!sendError">VALIDAR</button>
+	    </ion-col>
+	  </ion-row>
+
+	</ion-grid>
+
+</ion-content>

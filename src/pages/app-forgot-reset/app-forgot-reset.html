@@ -1,0 +1,163 @@
+<ion-header no-border>
+  <ion-navbar transparent>
+    <ion-title>RESTABLECER CONTRASEÑA</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-grid text-center *ngIf="onError">
+    <ion-row align-items-center>
+      <ion-col>
+        <img class="logo" src="assets/imgs/logo-b-color.png" />
+        <p>Error al validar datos, verifica tu conexión he intenta de nuevo</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div *ngIf="!onError && !noSecurity">
+    <div *ngIf="securityCheck">
+      <form [formGroup]="mainForm" (ngSubmit)="formSubmit('validate')" *ngIf="attemps > 0">
+        <ion-grid text-center>
+    
+          <ion-row justify-content-center>
+            <ion-col align-self-center>
+    
+              <ion-list>
+    
+                <ion-item>
+                  <ion-label floating>{{ questionA }}</ion-label>
+                  <ion-textarea formControlName="answerA"></ion-textarea>
+                </ion-item>
+    
+                <ion-item *ngIf="!mainForm.get('answerA').valid && mainForm.get('answerA').touched">
+                  <p ion-text text-wrap color="danger">Ingrese una respuesta válida</p>
+                </ion-item>
+    
+                <ion-item>
+                  <ion-label floating>{{ questionB }}</ion-label>
+                  <ion-textarea formControlName="answerB"></ion-textarea>
+                </ion-item>
+    
+                <ion-item *ngIf="!mainForm.get('answerB').valid && mainForm.get('answerB').touched">
+                  <p ion-text text-wrap color="danger">Ingrese una respuesta válida</p>
+                </ion-item>
+                
+                <p></p>
+    
+              </ion-list>
+    
+            </ion-col>
+          </ion-row>
+    
+          <ion-row justify-content-center margin-top>
+            <ion-col align-self-center>
+              <button ion-button type="submit" color="turquoise" [disabled]="!mainForm.valid && isLoading">
+                Validar
+              </button>
+            </ion-col>
+          </ion-row>
+    
+          <ion-row justify-content-center margin-bottom *ngIf="badAnswers">
+            <ion-col align-self-center>
+              <p ion-text text-wrap color="danger">
+                Respuestas incorrectas, intentos restantes: <b>{{ attemps }}</b>
+              </p>
+            </ion-col>
+          </ion-row>
+          
+        </ion-grid>
+      </form>
+
+      <ion-grid text-center *ngIf="attemps < 1">
+        <ion-row justify-content-center margin-top margin-bottom>
+          <ion-col align-self-center>
+            <h2>Ha superado el máximo de intentos permitidos</h2>
+            <button ion-button block color="dark" (click)="goHome()">
+              Volver
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div *ngIf="!securityCheck">
+      <form [formGroup]="passwordForm" (ngSubmit)="formSubmit('reset')" *ngIf="!passwordUpdated">
+        <ion-grid text-center>
+    
+          <ion-row justify-content-center>
+            <ion-col align-self-center>
+    
+              <ion-list>
+
+                <ion-item>
+                  <ion-label floating>Nueva Contraseña</ion-label>
+                  <ion-input class="no-transform" type="{{ newPassType }}" formControlName="newPassword"></ion-input>
+                  <button *ngIf="!showNewPass" ion-button icon-only clear color="dark" type="button" item-end
+                    (click)="showNewPassword()">
+                    <ion-icon name="ios-eye-off-outline"></ion-icon>
+                  </button>
+                  <button *ngIf="showNewPass" ion-button icon-only clear color="dark" type="button" item-end
+                    (click)="showNewPassword()">
+                    <ion-icon name="ios-eye-outline"></ion-icon>
+                  </button>
+                </ion-item>
+    
+                <ion-item>
+                  <ion-label floating>Confirmar Contraseña</ion-label>
+                  <ion-input type="password" formControlName="conPassword"></ion-input>
+                </ion-item>
+    
+                <ion-item *ngIf="passwordForm.get('conPassword').hasError('equalTo') && (passwordForm.get('conPassword').touched || passwordForm.get('newPassword').touched)">
+                  <p ion-text text-wrap color="danger">Las contraseñas no coinciden</p>
+                </ion-item>
+                <ion-item *ngIf="passwordForm.get('newPassword').hasError('minlength') && (passwordForm.get('conPassword').touched || passwordForm.get('newPassword').touched)">
+                  <p ion-text text-wrap color="danger">Debe contener al menos 5 caracteres</p>
+                </ion-item>
+                <ion-item *ngIf="passwordForm.get('newPassword').hasError('pattern') && (passwordForm.get('conPassword').touched || passwordForm.get('newPassword').touched)">
+                  <p ion-text text-wrap color="danger">Debe contener al menos una mayúscula, una minúscula y un dígito</p>
+                </ion-item>
+                
+                <p></p>
+    
+              </ion-list>
+    
+            </ion-col>
+          </ion-row>
+    
+          <ion-row justify-content-center margin-top>
+            <ion-col align-self-center>
+              <button ion-button type="submit" color="turquoise" [disabled]="!passwordForm.valid && isLoading">
+                RESTABLECER
+              </button>
+            </ion-col>
+          </ion-row>
+          
+        </ion-grid>
+      </form>
+
+      <ion-grid text-center *ngIf="passwordUpdated">
+        <ion-row justify-content-center margin-top margin-bottom>
+          <ion-col align-self-center>
+            <h2>El cambio de contraseña ha sido efectuado correctamente</h2>
+            <button ion-button block color="dark" (click)="goHome()">
+              Iniciar Sesión
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  <ion-grid text-center *ngIf="!onError && noSecurity">
+    <ion-row justify-content-center margin-top margin-bottom>
+      <ion-col align-self-center>
+        <h2>No se han definido preguntas de seguridad, te aconsejamos definir al menos dos (2) una vez dentro de tu cuenta</h2>
+        <button ion-button block color="dark" (click)="skipSecurity()">
+          Continuar
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

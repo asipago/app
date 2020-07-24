@@ -1,0 +1,75 @@
+<ion-content no-padding no-margin>
+
+  <div text-center class="main-header">
+    <div>
+      <button ion-button icon-only clear menuToggle color="light">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <h4 ion-text no-margin color="light">AJUSTES</h4>
+      <button ion-button icon-only clear color="light" class="hidden">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </div>
+  </div>
+
+	<ion-list padding-top>
+
+    <ion-list-header>General</ion-list-header>
+
+    <button ion-item clear (click)="openPage('AppSettingsPinPage')">
+      <ion-icon name='md-keypad' item-start></ion-icon> Nuevo PIN
+    </button>
+
+    <button ion-item clear no-lines (click)="openPage('AppSettingsPasswordPage')">
+      <ion-icon name='md-key' item-start></ion-icon> Cambiar Contraseña
+    </button>
+
+		<ion-list-header>Notifaciones</ion-list-header>
+
+    <ion-item>
+      <ion-toggle [(ngModel)]="noti_payment_received" (ionChange)="onSelectChange($event)"></ion-toggle>
+      <ion-label>
+        Recepción
+      </ion-label>
+      <ion-icon name='md-exit' item-start></ion-icon>
+		</ion-item>
+
+    <ion-item no-lines>
+      <ion-toggle [(ngModel)]="noti_payment_pending" (ionChange)="onSelectChange($event)"></ion-toggle>
+      <ion-label>
+        Cobros
+      </ion-label>
+      <ion-icon name='ios-cash' item-start></ion-icon>
+    </ion-item>
+
+    <ion-list-header>Seguridad</ion-list-header>
+
+    <ion-item>
+      <ion-toggle [(ngModel)]="check_transaction_pin" (ionChange)="onSelectChange($event)"></ion-toggle>
+      <ion-label>
+        Requerir PIN
+      </ion-label>
+      <ion-icon name='ios-lock' item-start></ion-icon>
+    </ion-item>
+
+    <ion-item *ngIf="fingerprintCapable">
+      <ion-toggle [(ngModel)]="auth_fingerprint" (ionChange)="authSelectChange($event)"></ion-toggle>
+      <ion-label>
+        <span>Autenticar con Huella</span><br/>
+        <small>Solo tú podrás iniciar sesión</small>
+      </ion-label>
+      <ion-icon name="ios-finger-print" item-start></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-toggle [(ngModel)]="check_user_device" (ionChange)="onSelectChange($event)"></ion-toggle>
+      <ion-label ion-text text-wrap>
+        <span>Restringir Dispositivo</span><br/>
+        <small>Este dispositivo estará vinculado a tu cuenta</small>
+      </ion-label>
+      <ion-icon name="ios-people" item-start></ion-icon>
+    </ion-item>
+
+	</ion-list>
+
+</ion-content>

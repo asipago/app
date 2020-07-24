@@ -1,0 +1,289 @@
+<ion-header no-border>
+	<ion-navbar transparent>
+		<ion-title>REGISTRO</ion-title>
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+	<form [formGroup]="mainForm" (ngSubmit)="signUp()">
+
+		<ion-grid text-center>
+
+			<ion-row justify-content-center>
+				<ion-col align-self-center>
+
+					<ion-list>
+
+						<ion-item-divider>
+							Información Básica
+						</ion-item-divider>
+
+						<ion-item>
+							<ion-label floating>Nombres</ion-label>
+							<ion-input type="text" formControlName="firstname"></ion-input>
+						</ion-item>
+
+						<ion-item
+							*ngIf="mainForm.get('firstname').hasError('required') && mainForm.get('firstname').touched">
+							<p ion-text text-wrap color="danger">Este campo es requerido</p>
+						</ion-item>
+
+						<ion-item
+							*ngIf="mainForm.get('firstname').hasError('minlength') && mainForm.get('firstname').touched">
+							<p ion-text text-wrap color="danger">Debe contener al menos 5 caracteres</p>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Apellidos</ion-label>
+							<ion-input type="text" formControlName="lastname"></ion-input>
+						</ion-item>
+
+						<ion-item
+							*ngIf="mainForm.get('lastname').hasError('required') && mainForm.get('lastname').touched">
+							<p ion-text text-wrap color="danger">Este campo es requerido</p>
+						</ion-item>
+
+						<ion-item
+							*ngIf="mainForm.get('lastname').hasError('minlength') && mainForm.get('lastname').touched">
+							<p ion-text text-wrap color="danger">Debe contener al menos 5 caracteres</p>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Tipo de Documento</ion-label>
+							<ion-select formControlName="nationality" interface="popover">
+								<ion-option value="V">V - Venezolano/a</ion-option>
+								<ion-option value="E">E - Extranjero/a</ion-option>
+								<ion-option value="R">R - Residente</ion-option>
+								<ion-option value="P">P - Pasaporte</ion-option>
+							</ion-select>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Nro. de Documento</ion-label>
+							<ion-input type="tel" formControlName="document" NumericMask></ion-input>
+						</ion-item>
+
+						<ion-item
+							*ngIf="mainForm.get('document').hasError('required') && mainForm.get('document').touched">
+							<p ion-text text-wrap color="danger">Debe contener al menos 5 caracteres</p>
+						</ion-item>
+
+						<ion-item
+							*ngIf="mainForm.get('document').hasError('pattern') && mainForm.get('document').touched">
+							<p ion-text text-wrap color="danger">Debe contener de 7 a 9 digitos</p>
+						</ion-item>
+
+						<ion-item *ngIf="onError.document">
+							<p ion-text text-wrap color="danger">El número de documento ya se encuentra registrado</p>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Teléfono</ion-label>
+							<ion-input type="tel" formControlName="phone" PhoneMask></ion-input>
+						</ion-item>
+
+						<ion-item *ngIf="onError.phone">
+							<p ion-text text-wrap color="danger">El número telefónico ya se encuentra registrado</p>
+						</ion-item>
+
+						<ion-item
+							*ngIf="mainForm.get('phone').hasError('required') && mainForm.get('phone').touched">
+							<p ion-text text-wrap color="danger">Este campo es requerido</p>
+						</ion-item>
+
+						<ion-item
+							*ngIf="mainForm.get('phone').hasError('pattern') && mainForm.get('phone').touched">
+							<p ion-text text-wrap color="danger">Ingrese un número válido</p>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Fecha de Nacimiento</ion-label>
+							<ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMM YYYY"
+								formControlName="birthday"></ion-datetime>
+						</ion-item>
+
+						<ion-item
+							*ngIf="mainForm.get('birthday').hasError('required') && mainForm.get('birthday').touched">
+							<p ion-text text-wrap color="danger">Este campo es requerido</p>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Correo</ion-label>
+							<ion-input type="email" formControlName="email"></ion-input>
+						</ion-item>
+
+						<ion-item *ngIf="mainForm.get('email').hasError('required') && mainForm.get('email').touched">
+							<p ion-text text-wrap color="danger">Este campo es requerido</p>
+						</ion-item>
+
+						<ion-item *ngIf="mainForm.get('email').hasError('pattern') && mainForm.get('email').touched">
+							<p ion-text text-wrap color="danger">Ingrese una dirección válida</p>
+						</ion-item>
+
+						<ion-item *ngIf="onError.email">
+							<p ion-text text-wrap color="danger">El correo ya se encuentra registrado</p>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Dirección</ion-label>
+							<ion-textarea formControlName="address"></ion-textarea>
+						</ion-item>
+
+						<ion-item
+							*ngIf="mainForm.get('address').hasError('required') && mainForm.get('address').touched">
+							<p ion-text text-wrap color="danger">Este campo es requerido</p>
+						</ion-item>
+
+						<ion-item
+							*ngIf="(mainForm.get('address').hasError('minlength') || mainForm.get('address').hasError('maxlength')) && mainForm.get('address').touched">
+							<p ion-text text-wrap color="danger">Ingrese una dirección válida</p>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Ciudad</ion-label>
+							<ion-input type="text" formControlName="city"></ion-input>
+						</ion-item>
+
+						<ion-item *ngIf="mainForm.get('city').hasError('required') && mainForm.get('city').touched">
+							<p ion-text text-wrap color="danger">Este campo es requerido</p>
+						</ion-item>
+
+						<ion-item *ngIf="mainForm.get('city').hasError('pattern') && mainForm.get('city').touched">
+							<p ion-text text-wrap color="danger">Solo se permiten letras y espacios</p>
+						</ion-item>
+
+						<ion-item
+							*ngIf="(mainForm.get('city').hasError('minlength') || mainForm.get('city').hasError('maxlength')) && mainForm.get('city').touched">
+							<p ion-text text-wrap color="danger">Debe contener al menos 5 caracteres</p>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Estado</ion-label>
+							<ion-select formControlName="state" interface="action-sheet" cancelText="Cancelar">
+								<ion-option value="AM">Amazonas</ion-option>
+								<ion-option value="AN">Anzoategui</ion-option>
+								<ion-option value="AP">Apure</ion-option>
+								<ion-option value="AR">Aragua</ion-option>
+								<ion-option value="BA">Barinas</ion-option>
+								<ion-option value="BO">Bolivar</ion-option>
+								<ion-option value="CA">Carabobo</ion-option>
+								<ion-option value="CO">Cojedes</ion-option>
+								<ion-option value="DA">Delta Amacuro</ion-option>
+								<ion-option value="DF">Dependencias Federales</ion-option>
+								<ion-option value="DI">Distrito Federal (Caracas)</ion-option>
+								<ion-option value="FA">Falcon</ion-option>
+								<ion-option value="GU">Guarico</ion-option>
+								<ion-option value="LA">Lara</ion-option>
+								<ion-option value="ME">Merida</ion-option>
+								<ion-option value="MI">Miranda</ion-option>
+								<ion-option value="MO">Monagas</ion-option>
+								<ion-option value="NE">Nueva Esparta</ion-option>
+								<ion-option value="PO">Portuguesa</ion-option>
+								<ion-option value="SU">Sucre</ion-option>
+								<ion-option value="TA">Tachira</ion-option>
+								<ion-option value="TR">Trujillo</ion-option>
+								<ion-option value="VA">Vargas</ion-option>
+								<ion-option value="YA">Yaracuy</ion-option>
+								<ion-option value="ZU">Zulia</ion-option>
+							</ion-select>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Cod. Postal</ion-label>
+							<ion-input type="tel" formControlName="zip"></ion-input>
+						</ion-item>
+
+						<ion-item *ngIf="mainForm.get('zip').hasError('required') && mainForm.get('zip').touched">
+							<p ion-text text-wrap color="danger">Este campo es requerido</p>
+						</ion-item>
+
+						<ion-item *ngIf="mainForm.get('zip').hasError('pattern') && mainForm.get('zip').touched">
+							<p ion-text text-wrap color="danger">Ingrese un código postal válido</p>
+						</ion-item>
+
+						<ion-item-divider>
+							Datos de la Cuenta
+						</ion-item-divider>
+
+						<ion-item>
+							<ion-label floating>Usuario</ion-label>
+							<ion-input type="text" formControlName="username"></ion-input>
+						</ion-item>
+
+						<ion-item
+							*ngIf="mainForm.get('username').hasError('required') && mainForm.get('username').touched">
+							<p ion-text text-wrap color="danger">Este campo es requerido</p>
+						</ion-item>
+
+						<ion-item
+							*ngIf="mainForm.get('username').hasError('pattern') && mainForm.get('username').touched">
+							<p ion-text text-wrap color="danger">Ingrese un nombre de usuario válido</p>
+						</ion-item>
+
+						<ion-item *ngIf="onError.username">
+							<p ion-text text-wrap color="danger">El nombre de usuario ya se encuentra registrado</p>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Contraseña</ion-label>
+							<ion-input class="no-transform" type="{{ type }}" formControlName="password"></ion-input>
+							<button *ngIf="!showPass" ion-button icon-only clear color="dark" type="button" item-end
+								(click)="showPassword()">
+								<ion-icon name="ios-eye-off-outline"></ion-icon>
+							</button>
+							<button *ngIf="showPass" ion-button icon-only clear color="dark" type="button" item-end
+								(click)="showPassword()">
+								<ion-icon name="ios-eye-outline"></ion-icon>
+							</button>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Vuelva a introducir la contraseña</ion-label>
+							<ion-input type="password" formControlName="confirmPassword"></ion-input>
+						</ion-item>
+
+						<ion-item
+							*ngIf="mainForm.get('confirmPassword').hasError('equalTo') && (mainForm.get('confirmPassword').touched || mainForm.get('password').touched)">
+							<p ion-text text-wrap color="danger">Las contraseñas no coinciden</p>
+						</ion-item>
+						<ion-item
+							*ngIf="mainForm.get('password').hasError('minlength') && (mainForm.get('confirmPassword').touched || mainForm.get('password').touched)">
+							<p ion-text text-wrap color="danger">Debe contener al menos 5 caracteres</p>
+						</ion-item>
+						<ion-item
+							*ngIf="mainForm.get('password').hasError('pattern') && (mainForm.get('confirmPassword').touched || mainForm.get('password').touched)">
+							<p ion-text text-wrap color="danger">Debe contener al menos una mayúscula, una minúscula y
+								un dígito</p>
+						</ion-item>
+
+						<!-- BUG: This is needed -->
+						<p></p>
+
+					</ion-list>
+
+				</ion-col>
+			</ion-row>
+
+			<ion-row justify-content-center margin-top margin-bottom>
+				<ion-col align-self-center>
+					<button ion-button type="submit" color="turquoise" [disabled]="!mainForm.valid">
+						CREAR CUENTA
+					</button>
+				</ion-col>
+			</ion-row>
+
+			<ion-row justify-content-center margin-top margin-bottom *ngIf="onError.document || onError.email || onError.username || onError.phone">
+				<ion-col align-self-center>
+					<p ion-text text-wrap color="danger">
+						Hay errores al procesar tu registro, por favor verifica los datos e intenta de nuevo
+					</p>
+				</ion-col>
+			</ion-row>
+
+		</ion-grid>
+
+	</form>
+
+</ion-content>

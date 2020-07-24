@@ -1,0 +1,44 @@
+<ion-content padding>
+
+	<ion-grid text-center>
+
+	  <ion-row align-items-center>
+	    <ion-col>
+	      <img class="title-image" src="assets/imgs/account-withdraw-approved.png" width="180" height="150" /><br/>
+	      <h4>¡RETIRO DE FONDOS ENVIADOS!</h4>
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row align-items-center>
+	    <ion-col>
+
+				<ion-list>
+
+	        <ion-item no-lines>
+	          <p>Banco:</p>
+	          <h1 ion-text color="secondary">{{ bank }}</h1>
+	        </ion-item>
+
+	        <ion-item no-lines>
+	          <p>Monto:</p>
+	          <h1 ion-text color="secondary">{{ amount | currency:currencySymbol:'code':'1.2-2':'es' }}</h1>
+	        </ion-item>
+
+	        <ion-item no-lines>
+	          <small ion-text text-wrap color="secondary">El retiro de fondos a su cuenta bancaria toma aproximadamente 5 minutos, en caso de que la plataforma del banco destinatario presente dificultades técnicas se le transferirá de otro banco donde posea alguna cuenta previamente verificada. Esto podría demorar de 24 a 72 horas.</small>
+	        </ion-item>
+
+				</ion-list>
+
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row justify-content-center>
+	    <ion-col align-self-center col-12>
+	      <button ion-button block color="dark" (click)="goHome()">CERRAR</button>
+	    </ion-col>
+	  </ion-row>
+
+	</ion-grid>
+
+</ion-content>

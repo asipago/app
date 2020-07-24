@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "306274884925",
+    "firebase_url": "https://asipago-c91eb.firebaseio.com",
+    "project_id": "asipago-c91eb",
+    "storage_bucket": "asipago-c91eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306274884925:android:d488f70be0cc9f89",
+        "android_client_info": {
+          "package_name": "com.asipago.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "306274884925-llkh13m8mlb8da2j1kralpceq5b1vhd8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmDS8WYY1kEk1SUDTm9tcDHKJpInALVNQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,33 @@
+<ion-content padding>
+
+	<ion-grid text-center>
+
+	  <ion-row align-items-center>
+	    <ion-col>
+	      <img class="title-image" src="assets/imgs/app-device-unverified.png" width="100" height="100" /><br/>
+	      <h4>Confirmación de Identidad</h4>
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row align-items-center>
+	    <ion-col text-center>
+	    	<p>Por favor selecciona una opci&oacute;n</p>
+	    	<p>para confirmar tu identidad</p>
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row justify-content-center *ngIf="fingerprintCapable">
+	    <ion-col align-self-center>
+	      <button ion-button block color="primary" (click)="showFingerPrintDialog()">VALIDAR HUELLA</button>
+	    </ion-col>
+	  </ion-row>
+	    
+	  <ion-row justify-content-center>
+	    <ion-col text-center>
+	    	<p tappable (click)="showSmsValidation()"><u>Validar mi identidad vía SMS</u></p>
+	    </ion-col>
+	  </ion-row>
+
+	</ion-grid>
+
+</ion-content>

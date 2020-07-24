@@ -1,0 +1,49 @@
+<ion-content padding>
+
+	<ion-grid text-center>
+
+	  <ion-row align-items-center>
+	    <ion-col>
+	      <img class="title-image" src="assets/imgs/mobile-recharge-approved.png" width="100" height="100" /><br/>
+	      <h4>¡RECARGA PROCESADA!</h4>
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row align-items-center>
+	    <ion-col>
+
+			<ion-list>
+
+			  <ion-item no-lines>
+			    <p>Número:</p>
+			    <h1 ion-text color="secondary">{{ recharge.number }}</h1>
+			  </ion-item>
+
+			  <ion-item no-lines>
+			    <p>Monto:</p>
+			    <h1 ion-text color="secondary">{{ recharge.amount | currency:currencySymbol:'code':'1.2-2':'es' }}</h1>
+			  </ion-item>
+
+			  <ion-item no-lines>
+			    <p>Operadora:</p>
+			    <h1 ion-text color="secondary">{{ recharge.carrier.toUpperCase() }}</h1>
+			  </ion-item>
+			  
+        <ion-item no-lines>
+          <small ion-text text-wrap color="secondary">En breves segundos será acreditada la recarga de saldo, podrás ver el detalle en tu lista de movimientos.</small>
+        </ion-item>
+
+			</ion-list>
+
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row justify-content-center>
+	    <ion-col align-self-center>
+	      <button ion-button block color="dark" (click)="goHome()">CERRAR</button>
+	    </ion-col>
+	  </ion-row>
+
+	</ion-grid>
+
+</ion-content>

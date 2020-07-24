@@ -1,0 +1,39 @@
+<ion-header no-border>
+  <ion-navbar transparent>
+    <ion-title>RESTABLECER CONTRASEÑA</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <form [formGroup]="mainForm" (ngSubmit)="sendEmail()" *ngIf="emailForm">
+    <ion-grid text-center>
+
+      <ion-row align-items-center>
+        <ion-col>
+          <ion-input type="email" formControlName="email" placeholder="Ingresa el correo electrónico"></ion-input>
+          <p ion-text text-wrap color="danger" *ngIf="noEmail">Correo no registrado</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row justify-content-center margin-top margin-bottom>
+        <ion-col align-self-center>
+          <button ion-button type="submit" color="turquoise" [disabled]="!mainForm.valid">
+            Restablecer
+          </button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </form>
+
+  <ion-grid text-center *ngIf="checkEmail">
+    <ion-row align-items-center>
+	    <ion-col>
+				<img class="logo" src="assets/imgs/logo-b-color.png" />
+				<p>Te hemos enviado un correo electrónico, por favor sigue las instrucciones para reestrablecer tu contraseña...</p>
+	    </ion-col>
+	  </ion-row>
+  </ion-grid>
+
+</ion-content>

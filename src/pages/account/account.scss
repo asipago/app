@@ -1,0 +1,54 @@
+page-account {
+	ion-header ion-navbar ion-title {
+		z-index: 11;
+	}
+	ion-content {
+		.scroll-content {
+			margin: 0 !important;
+			padding: 0;
+			/* .main-header > div:not(.swap-button-hide) h4 {
+				display: none;
+			} */
+			ion-item {
+				small {
+					font-size: 1.2rem !important;
+					color: #999;
+				}
+				p {
+					font-size: 1.6rem;
+					font-weight: normal;
+					text-transform: none;
+					color: #a3aeb4;
+					margin-top: 10px;
+				}
+			}
+			form {
+				margin-top: 50px;
+			}
+			#imageProfile {
+				position: absolute;
+				z-index: 1;
+				width: 100%;
+				>div {
+					position: absolute;
+					width: 100%;
+					bottom: 0;
+					margin: 0 0 0 40px;
+					ion-icon {
+						padding: 0 0.4em;
+					}
+				}
+				>img {
+					width: 8em;
+					height: 8em;
+					margin-top: -50px;
+					border-radius: 50%;
+				}
+				>button {
+					position: absolute;
+					left: 0;
+				}
+			}
+		}
+	}
+}

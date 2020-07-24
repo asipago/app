@@ -1,0 +1,74 @@
+<ion-content no-padding no-margin>
+
+  <div text-center class="main-header">
+    <div>
+      <button ion-button icon-only clear menuToggle color="light">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+	  <h4 ion-text no-margin color="light">
+		  <small>DISPONIBLE</small><br/>
+		  {{ availableFunds | currency:currencySymbol:'code':'1.2-2':'es' }}
+	  </h4>
+      <button ion-button icon-only clear color="light" class="hidden">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </div>
+  </div>
+
+	<form [formGroup]="mainForm" (ngSubmit)="makePayment()">
+
+		<ion-grid text-center>
+
+		  <ion-row align-items-center>
+		    <ion-col>
+		      <h4>REALIZAR PAGO A:</h4>
+		    </ion-col>
+		  </ion-row>
+
+		  <ion-row align-items-center>
+		    <ion-col>
+
+					<ion-list>
+
+					  <ion-item no-lines text-center>
+				      <h2 ion-text color="dark">{{ scannerData.alias }}</h2>
+				      <h3>{{ scannerData.username }}</h3>
+				      <h4>{{ scannerData.document }}</h4>
+					  </ion-item>
+
+					  <ion-item *ngIf="false" no-lines>
+					    <ion-input type="text" formControlName="username"></ion-input>
+					  </ion-item>
+
+					  <ion-item no-lines>
+					    <ion-label floating>Monto:</ion-label>
+					    <ion-input type="tel" formControlName="amount" NumericMask></ion-input>
+					  </ion-item>
+
+					  <ion-item no-lines>
+					    <ion-label floating>Descripción:</ion-label>
+					    <ion-input class="no-transform" type="text" formControlName="description"></ion-input>
+					  </ion-item>
+
+					</ion-list>
+
+		    </ion-col>
+		  </ion-row>
+
+		  <ion-row justify-content-center>
+		    <ion-col align-self-center>
+		      <button ion-button block color="dark" type="button" (click)="initCamera()">ESCANEAR</button>
+		    </ion-col>
+		  </ion-row>
+
+		  <ion-row justify-content-center>
+		    <ion-col align-self-center>
+		      <button ion-button block color="primary" type="submit" [disabled]="!mainForm.valid">PAGAR</button>
+		    </ion-col>
+		  </ion-row>
+
+		</ion-grid>
+
+	</form>
+
+</ion-content>

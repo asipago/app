@@ -1,0 +1,11 @@
+{
+  "android": {
+    "release": {
+      "keystore": "stores/keystore.jks",
+      "storePassword": "Asipagoserver30*",
+      "alias": "asipago",
+      "password" : "Asipagoserver30*",
+      "keystoreType": ""
+    }
+  }
+}

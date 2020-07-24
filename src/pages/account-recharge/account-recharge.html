@@ -1,0 +1,103 @@
+<ion-content no-padding no-margin>
+
+	<div text-center class="main-header">
+		<div>
+			<button ion-button icon-only clear menuToggle color="light">
+				<ion-icon name="menu"></ion-icon>
+			</button>
+			<h4 ion-text no-margin color="light">
+				<small>DISPONIBLE</small><br />
+				{{ availableFunds | currency:currencySymbol:'code':'1.2-2':'es' }}
+			</h4>
+			<button ion-button icon-only clear color="light" class="hidden">
+				<ion-icon name="menu"></ion-icon>
+			</button>
+		</div>
+	</div>
+
+	<form [formGroup]="mainForm" (ngSubmit)="showAlert()">
+
+		<ion-grid text-center>
+
+			<ion-row align-items-center>
+				<ion-col>
+					<h4>RECARGAR SALDO</h4>
+					<p>{{ username }}</p>
+				</ion-col>
+			</ion-row>
+
+			<ion-row align-items-center>
+				<ion-col>
+
+					<ion-list>
+
+						<ion-item no-lines>
+							<!-- <ion-label>Banco</ion-label> -->
+							<ion-select [(ngModel)]="selectedBank" [ngModelOptions]="{standalone: true}"
+								(ionChange)="onSelectChange($event)" interface="action-sheet" cancelText="Cancelar">
+								<ion-option disabled selected>Banco</ion-option>
+								<ion-option *ngFor="let bank of banks" [value]="bank">{{ bank.name }}</ion-option>
+							</ion-select>
+						</ion-item>
+
+						<ion-item no-lines *ngIf="accountInfo.code != '' && currencySymbol == 'BS'">
+							<p>Titular: Asipago C.A.</p>
+							<p>RIF: J-40256036-2</p>
+							<p>Cuenta {{ accountInfo.type }}</p>
+							<p>{{ accountInfo.code }}</p>
+							<div text-center margin padding>
+								<button color="primary" ion-button icon-only clear (click)="shareAccount()">
+									<ion-icon name="share"></ion-icon>
+								</button>
+								&nbsp;&nbsp;
+								<button color="primary" ion-button icon-only clear (click)="copyAccount()">
+									<ion-icon name="clipboard"></ion-icon>
+								</button>
+							</div>
+						</ion-item>
+
+						<ion-item no-lines *ngIf="accountInfo.code != '' && currencySymbol == 'USD'">
+							<p>Titular: Asipago Inc.</p>
+							<p>Cuenta: {{ accountInfo.code }}</p>
+							<p>Papel y Electrónico: {{ accountInfo.routea }}</p>
+							<p>Transfer por Cable: {{ accountInfo.routeb }}</p>
+							<p>Zelle: {{ accountInfo.zelle }}</p>
+							<div text-center margin padding>
+								<button color="primary" ion-button icon-only clear (click)="shareAccount()">
+									<ion-icon name="share"></ion-icon>
+								</button>
+								&nbsp;&nbsp;
+								<button color="primary" ion-button icon-only clear (click)="copyAccount()">
+									<ion-icon name="clipboard"></ion-icon>
+								</button>
+							</div>
+						</ion-item>
+
+						<ion-item no-lines>
+							<ion-label floating>Nro de transferencia o deposito:</ion-label>
+							<ion-input type="text" formControlName="reference"></ion-input>
+						</ion-item>
+
+					</ion-list>
+
+				</ion-col>
+			</ion-row>
+
+			<ion-row justify-content-center>
+				<ion-col align-self-center>
+					<button ion-button block color="primary" type="submit"
+						[disabled]="!mainForm.valid">RECARGAR</button>
+				</ion-col>
+			</ion-row>
+
+			<!-- <ion-row justify-content-center *ngIf="accountInfo.length < 1">
+				<ion-col align-self-center>
+					<p>Actualmente no poseemos cuenta en la entidad bancaria seleccionada, por lo que el tiempo para acreditar el pago puede tardar hasta 24 horas.</p>
+				</ion-col>
+			</ion-row> -->
+
+		</ion-grid>
+
+	</form>
+
+</ion-content>

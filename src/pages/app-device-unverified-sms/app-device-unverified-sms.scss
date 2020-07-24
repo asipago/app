@@ -1,0 +1,15 @@
+page-app-device-unverified-sms {
+	img.logo {
+		width: 180px;
+	}
+	ion-input {
+		font-size: 1.2rem;
+	}
+	input.text-input {
+		font-size: 2em;
+	}
+	ion-header ion-navbar {
+		height: inherit;
+		min-height: 50px !important;
+	}
+}

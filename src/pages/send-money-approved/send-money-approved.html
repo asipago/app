@@ -1,0 +1,60 @@
+<ion-content no-padding no-margin id="domContent">
+	<div text-center class="main-header">
+		<ion-grid text-center>
+			<ion-row text-right *ngIf="!isSharing">
+				<ion-col class="close-icon">
+					<button ion-button icon-only clear class="animated fadeIn" color="light" (click)="goHome()">
+						<ion-icon name="md-close-circle"></ion-icon>
+					</button>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-icon class="animated zoomIn main-icon" color="light" name="ios-checkmark-circle-outline">
+					</ion-icon>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<p ion-text color="gray-light">HAS ENVIADO</p>
+					<h1 ion-text color="dark">{{ movement.amount | currency:currencySymbol:'code':'1.2-2':'es' }}</h1>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<p ion-text margin-top color="gray-light">PARA</p>
+					<h4 ion-text no-margin color="light">{{ movement.user.name }}</h4>
+					<h4 ion-text no-margin color="light">{{ movement.user.document }}</h4>
+					<h4 ion-text no-margin color="light">{{ movement.user.username }}</h4>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<p ion-text margin-top color="gray-light">DESDE</p>
+					<h4 ion-text no-margin color="light">{{ currentAccountType }}</h4>
+					<h4 ion-text no-margin color="light">{{ currentAccountName }}</h4>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+
+	<ion-grid text-center>
+		<ion-row align-items-start>
+			<ion-col padding-left text-left col-sm-12 col-md-6>
+				<p ion-text color="gray">Fecha de Transacción</p>
+				<h4 ion-text color="dark">{{ movement.date }}</h4>
+			</ion-col>
+			<ion-col padding-right text-right col-sm-12 col-md-6>
+				<p ion-text color="gray">Referencia</p>
+				<h4 ion-text color="dark">{{ movement.reference }}</h4>
+			</ion-col>
+		</ion-row>
+
+		<ion-row align-items-center margin-top *ngIf="!isSharing">
+			<ion-col align-self-center col-md-12 col-lg-6>
+				<button ion-button color="primary" (click)="shareLink()">COMPARTIR</button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+</ion-content>

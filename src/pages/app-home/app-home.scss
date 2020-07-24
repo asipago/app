@@ -1,0 +1,29 @@
+page-app-home {
+	img.logo {
+		width: 50%;
+	}
+
+	ion-content {
+    	background: linear-gradient(45deg,rgba(9,211,187,.5) 0,rgba(9,211,187,0) 70%),linear-gradient(135deg,rgba(6,168,249,.5) 10%,rgba(6,168,249,0) 80%),linear-gradient(225deg,rgba(10,214,187,.5) 10%,rgba(10,214,187,0) 80%),linear-gradient(315deg,rgba(1,129,208,.5) 100%,rgba(1,129,208,0) 70%);
+    	background-image: url(../assets/imgs/headermail.jpg);
+		background-size: 200% 100%;
+		.scroll-content {
+			overflow: hidden;
+		}
+	}
+
+	ion-grid {
+		padding: 70px 5px !important;
+	}
+
+	form {
+		margin: 0;
+		position: absolute;
+		top: 50%;
+		-ms-transform: translateY(-50%);
+		transform: translateY(-50%);
+		left: 15px;
+		right: 15px;
+		width: 90%;
+	}
+}

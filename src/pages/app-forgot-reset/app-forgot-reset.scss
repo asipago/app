@@ -1,0 +1,16 @@
+page-app-forgot-reset {
+	ion-header ion-navbar {
+		height: inherit;
+		min-height: 55px !important;
+		background: none;
+		border-radius: 0 !important;
+    }
+    
+    img.logo {
+		width: 180px;
+	}
+
+	.item-md.item-label-floating [item-end] {
+		align-self: flex-end;
+    }
+}

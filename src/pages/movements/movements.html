@@ -1,0 +1,109 @@
+<!-- <ion-header *ngIf="showScrollButton" [@animateScrollButton]>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title align-items-center text-center>
+      <p>{{ selectedFilter }}</p>
+      <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMM YYYY" [(ngModel)]="selectedDate" (ionChange)="selectDate($event)"></ion-datetime>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
+
+<ion-content no-padding no-margin>
+
+  <div text-center class="main-header">
+    <div>
+      <button ion-button icon-only clear menuToggle color="light">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <h4 ion-text no-margin color="light" class="date-filter">
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMM YYYY" [(ngModel)]="selectedDate" (ionChange)="selectDate($event)"></ion-datetime>
+        <i class="arrow down"></i>
+      </h4>
+      <p class="text-filter" ion-text no-margin color="light">{{ selectedFilter }}</p>
+    </div>
+  </div>
+			
+  <button ion-button icon-only round class="scroll-top" (click)="goTop()" *ngIf="showScrollButton" [@animateScrollButton]>
+    <ion-icon name="md-arrow-dropup"></ion-icon>
+  </button>
+
+  <div [ngSwitch]="filter">
+
+    <ion-list *ngSwitchCase="'all'">
+      <ion-item tappable [@animateToLeft] *ngFor="let movement of movements" (click)="viewDetails(movement.reference)">
+
+        <ion-grid>
+          <ion-row>
+            <ion-col align-self-start text-left>
+              <p>{{ movement.user }}</p>
+              <p><small>{{ movement.date }}</small></p>
+            </ion-col>
+            <ion-col align-self-end text-right>
+              <h3 ion-text [color]="movement.type == 'IN' ? 'green' : 'orange'">{{ movement.type == 'IN' ? '+' : '-' }}{{ movement.amount | currency:currencySymbol:'code':'1.2-2':'es' }}</h3>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'in'">
+      <ion-item tappable [@animateToLeft] *ngFor="let movement of movements | filterMovementByType:{type: 'IN'}" (click)="viewDetails(movement.reference)">
+
+        <ion-grid>
+          <ion-row>
+            <ion-col align-self-start text-left>
+              <p>{{ movement.user }}</p>
+              <p><small>{{ movement.date }}</small></p>
+            </ion-col>
+            <ion-col align-self-end text-right>
+              <h3 ion-text color="green">+{{ movement.amount | currency:currencySymbol:'code':'1.2-2':'es' }}</h3>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'out'">
+      <ion-item tappable [@animateToLeft] *ngFor="let movement of movements | filterMovementByType:{type: 'OUT'}" (click)="viewDetails(movement.reference)">
+
+        <ion-grid>
+          <ion-row>
+            <ion-col align-self-start text-left>
+              <p>{{ movement.user }}</p>
+              <p><small>{{ movement.date }}</small></p>
+            </ion-col>
+            <ion-col align-self-end text-right>
+              <h3 ion-text color="orange">-{{ movement.amount | currency:currencySymbol:'code':'1.2-2':'es' }}</h3>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        
+      </ion-item>
+    </ion-list>
+
+  </div>
+  
+</ion-content>
+
+<ion-footer no-border color="gray-light">
+  <ion-toolbar>
+    <ion-segment color="dark" [(ngModel)]="filter" (ionChange)="selectFilter($event)">
+      <ion-segment-button value="in">
+        <ion-icon name="md-arrow-down"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="all">
+        <ion-icon name="md-list"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button  value="out">
+        <ion-icon name="md-arrow-up"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

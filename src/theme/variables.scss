@@ -1,0 +1,137 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/theming/
+
+// Font path is used to include ionicons,
+// roboto, and noto sans fonts
+$font-path: "../assets/fonts";
+
+
+// The app direction is used to include
+// rtl styles in your app. For more info, please see:
+// http://ionicframework.com/docs/theming/rtl-support/
+$app-direction: ltr;
+
+
+@import "ionic.globals";
+
+
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/theming/overriding-ionic-variables/
+
+$text-color: #a3aeb4;
+$menu-background: #343e4a;
+
+
+
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+
+$colors: (
+  //primary:         #3880ff,
+  primary:         #09b4d4,
+  secondary:       #0cd1e8,
+  danger:          #f04141,
+  success:         #10dc60,
+  warning:         #ffce00,
+  light:           #f4f5f8,
+  dark:            #263238,
+  gray:            #989aa2,
+  gray-light:      #dedede,
+  orange:          #fb5b00,
+  blue:            #098bf9,
+  green:           #06d00f,
+  turquoise:       #09b4d4,
+  turquoise-light: #09d3bb,
+  instagram:       #e4405f,
+  whatsapp:        #25D366,
+  facebook:        #3b5999,
+  twitter:         #55acee
+);
+
+
+
+// App iOS Variables
+// --------------------------------------------------
+// iOS only Sass variables can go here
+
+$menu-ios-background: $menu-background;
+$item-ios-paragraph-text-color: $text-color;
+$item-ios-detail-push-show: false;
+
+
+
+// App Material Design Variables
+// --------------------------------------------------
+// Material Design only Sass variables can go here
+
+$menu-md-background: $menu-background;
+$item-md-paragraph-text-color: $text-color;
+
+
+
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+
+$menu-wp-background: $menu-background;
+$item-wp-paragraph-text-color: $text-color;
+
+
+
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+
+@import "ionic.theme.default";
+
+
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/ionicons/
+
+@import "ionic.ionicons";
+
+ion-icon {
+  &[class*="custom-"] {
+    mask-size: contain;
+    mask-position: 50% 50%;
+    mask-repeat: no-repeat;
+    background: currentColor;
+    width: 1em;
+    height: 1em;
+  }
+  // custom icons
+  &[class*="custom-swap"] {
+    mask-image: url(../assets/icon/swap.svg);
+  }
+}
+
+
+// Fonts
+// --------------------------------------------------
+
+@import "roboto";
+@import "noto-sans";
+
+
+// Animations
+// --------------------------------------------------
+
+@keyframes spin {
+  100% {
+    transform:rotate(360deg);
+  }
+}

@@ -1,0 +1,82 @@
+<ion-content padding>
+	
+	<div *ngIf="isValid">
+		<ion-grid text-center>
+		  <ion-row align-items-center *ngIf="!isOwner">
+		    <ion-col>
+		      <h4>{{ title }}</h4>
+		    </ion-col>
+		  </ion-row>
+		  <ion-row align-items-center>
+		    <ion-col>
+		      <h4 ion-text color="secondary">{{ subtitlea }}</h4>
+		      <h3>{{ subtitleb | titlecase }}</h3>
+		    </ion-col>
+		  </ion-row>
+		</ion-grid>
+
+		<ion-grid text-center>
+		  <ion-row align-items-center>
+		    <ion-col>
+		      <h4 ion-text color="secondary">Monto</h4>
+		      <h3>{{ link.amount | currency:currencySymbol:'code':'1.2-2':'es' }}</h3>
+		    </ion-col>
+		  </ion-row>
+		  <ion-row align-items-center>
+		    <ion-col>
+		      <h4 ion-text color="secondary">Fecha</h4>
+		      <h3>{{ link.date | date:'dd/MM/yyyy' }}</h3>
+		    </ion-col>
+		  </ion-row>
+		  <ion-row align-items-center>
+		    <ion-col>
+		      <h4 ion-text color="secondary">Concepto</h4>
+		      <h3>{{ link.concept }}</h3>
+		    </ion-col>
+		  </ion-row>
+		</ion-grid>
+
+		<ion-grid text-center *ngIf="isOwner">
+		  <ion-row align-items-center>
+		    <ion-col>
+		      <p ion-text text-wrap>No puedes procesar este enlace ya que eres quien lo ha generado</p>
+		    </ion-col>
+		  </ion-row>
+		  <ion-row justify-content-center>
+		    <ion-col align-self-center>
+		      <button ion-button block color="danger" (click)="removeLink()">ELIMINAR</button>
+		    </ion-col>
+		  </ion-row>
+		</ion-grid>
+
+		<ion-grid text-center *ngIf="!isOwner">
+
+		  <ion-row justify-content-center>
+		    <ion-col align-self-center>
+		      <button *ngIf="link.type == 'IN'" ion-button block color="primary" (click)="processLink()">ENVIAR</button>
+		      <button *ngIf="link.type == 'OUT'" ion-button block color="primary" (click)="processLink()">RECIBIR</button>
+		    </ion-col>
+		  </ion-row>
+
+		</ion-grid>
+	</div>
+
+
+	<div *ngIf="!isValid">
+		<ion-grid text-center>
+
+		  <ion-row align-items-center>
+		    <ion-col>
+		      <p text-wrap>El enlace proporcionado no es válido</p>
+		    </ion-col>
+		  </ion-row>
+
+		  <ion-row justify-content-center>
+		    <ion-col align-self-center>
+		      <button ion-button block color="dark" (click)="goHome()">ENTENDIDO</button>
+		    </ion-col>
+		  </ion-row>
+
+		</ion-grid>
+	</div>
+</ion-content>

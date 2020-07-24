@@ -1,0 +1,52 @@
+<ion-content no-padding no-margin>
+
+	<div text-center class="main-header">
+		<div>
+			<button ion-button icon-only clear menuToggle color="light">
+				<ion-icon name="menu"></ion-icon>
+			</button>
+			<h4 ion-text no-margin color="light">
+				<small>CUENTAS</small><br />
+				POR COBRAR
+			</h4>
+			<button ion-button icon-only clear color="light" class="hidden">
+				<ion-icon name="menu"></ion-icon>
+			</button>
+		</div>
+	</div>
+
+	<ion-grid text-center>
+
+		<ion-row justify-content-center>
+			<ion-col align-self-center>
+
+				<ion-list>
+					<ion-item *ngFor="let link of links" tappable (click)="viewDetails(link)">
+
+						<ion-grid>
+							<ion-row>
+								<ion-col align-self-start text-left>
+									<p>{{ link.amount | currency:currencySymbol:'code':'1.2-2':'es' }}</p>
+									<p><small>{{ link.createdAt }}</small></p>
+								</ion-col>
+								<ion-col align-self-end text-right>
+									<p><small>PIN</small></p>
+									<h3 ion-text [color]="link.secure ? 'dark' : 'gray'">{{ (link.secure ? link.pin : "-") }}</h3>
+								</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col>
+									<p>{{ link.concept }}</p>
+								</ion-col>
+							</ion-row>
+						</ion-grid>
+
+					</ion-item>
+				</ion-list>
+
+			</ion-col>
+		</ion-row>
+
+	</ion-grid>
+
+</ion-content>

@@ -1,0 +1,48 @@
+<ion-content padding>
+
+	<ion-grid text-center>
+
+	  <ion-row align-items-center>
+	    <ion-col>
+	      <img class="title-image" src="assets/imgs/account-recharge-approved.png" width="100" height="100" /><br/>
+	      <h4>¡RECARGA EXITOSA!</h4>
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row align-items-center>
+	    <ion-col>
+
+				<ion-list>
+
+	        <ion-item no-lines>
+	          <p>Banco:</p>
+	          <h1 ion-text color="secondary">{{ bank }}</h1>
+	        </ion-item>
+
+	        <ion-item no-lines>
+	          <p>Referencia:</p>
+	          <h1 ion-text color="secondary">{{ reference }}</h1>
+	        </ion-item>
+
+	        <ion-item no-lines>
+	          <small ion-text text-wrap color="secondary">En breves segundos será acreditada la recarga de saldo, podrás ver el detalle en tu lista de movimientos.</small>
+	        </ion-item>
+
+	        <ion-item no-lines>
+	          <small ion-text text-wrap color="secondary">Si el monto no ha sido acreditado en menos de 5 minutos por favor verifica que el número de operación bancaria sea correcto y que la transacción fuera procesada en la entidad bancaria {{ bank }} de forma correcta.</small>
+	        </ion-item>
+
+				</ion-list>
+
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row justify-content-center *ngIf="!isDirectLink">
+	    <ion-col align-self-center col-12>
+	      <button ion-button block color="dark" (click)="goHome()">CERRAR</button>
+	    </ion-col>
+	  </ion-row>
+
+	</ion-grid>
+
+</ion-content>

@@ -1,0 +1,45 @@
+page-movements {
+	.item-md.item-label-floating [item-end] {
+		align-self: flex-end;
+	}
+	.datetime-text {
+		line-height: inherit;
+	}
+	.scroll-top {
+		position: fixed;
+		top: 5px;
+		right: 5px;
+		z-index: 1;
+	}
+	.scroll-content {
+		margin-bottom: 45px !important;
+		.main-header > div:not(.swap-button-hide) h4 {
+			line-height: inherit;
+		}
+		.button-clear {
+			color: white;
+		}
+	}
+	/* .date-filter {
+		margin-top: 15px;
+	}*/
+	.text-filter {
+		/* line-height: 5px !important;
+		margin-top: 65px; */
+		padding-right: 10px;
+	}
+	.item-cover {
+		width: 0;
+		height: 0;
+	}
+	ion-footer {
+		padding: 10px;
+		position: fixed;
+		&:before {
+			content: none;
+		}
+		ion-toolbar {
+			border-radius: 5px 5px 25px 25px;
+		}
+	}
+}

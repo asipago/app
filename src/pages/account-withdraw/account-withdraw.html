@@ -1,0 +1,62 @@
+<ion-content no-padding no-margin>
+
+  <div text-center class="main-header">
+    <div>
+      <button ion-button icon-only clear menuToggle color="light">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+	  <h4 ion-text no-margin color="light">
+		  <small>DISPONIBLE</small><br/>
+		  {{ availableFunds | currency:currencySymbol:'code':'1.2-2':'es' }}
+	  </h4>
+      <button ion-button icon-only clear color="light" class="hidden">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </div>
+  </div>
+
+	<ion-grid text-center>
+
+	  <ion-row align-items-center>
+	    <ion-col>
+
+				<ion-list>
+				  <ion-item-sliding tappable *ngFor="let item of accounts; let id = index" (click)="continueWithdraw(id)">
+				    <ion-item>
+					    <ion-avatar item-start>
+					      <img src="assets/imgs/banks/{{ item.bank.alias.toLowerCase() }}.png">
+					    </ion-avatar>
+				      <h2>{{ item.code }}</h2>
+				      <p>{{ item.type }}</p>
+				    </ion-item>
+				    <ion-item-options side="left">
+				    	<button *ngIf="item.verified" ion-button color="green">
+				        <ion-icon name="ios-thumbs-up"></ion-icon>
+				        Verificada
+				      </button>
+				    	<button *ngIf="!item.verified" ion-button color="dark">
+				        <ion-icon name="ios-thumbs-down"></ion-icon>
+				        Sin Verificar
+				      </button>
+				    </ion-item-options>
+				    <ion-item-options side="right">
+				      <button [disabled]="item.verified" ion-button color="danger" (click)="removeAccount(item.code)">
+				        <ion-icon name="md-trash"></ion-icon>
+				        Eliminar
+				      </button>
+				    </ion-item-options>
+				  </ion-item-sliding>
+				</ion-list>
+
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row justify-content-center>
+	    <ion-col align-self-center>
+	      <button ion-button block color="primary" (click)="registerAccount()">NUEVA CUENTA</button>
+	    </ion-col>
+	  </ion-row>
+
+	</ion-grid>
+
+</ion-content>

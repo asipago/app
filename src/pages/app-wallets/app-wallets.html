@@ -1,0 +1,5 @@
+<ion-list>
+	<ion-list-header>Seleccione una Cartera</ion-list-header>
+  <button ion-item (click)="switchWallet('own')">Mi Cartera</button>
+  <button ion-item *ngFor="let company of wallets" (click)="switchWallet(company.rif)">{{ company.alias }}</button>
+</ion-list>

@@ -1,0 +1,29 @@
+<ion-header no-border>
+  <ion-navbar transparent>
+    <ion-title>VALIDANDO</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+	<ion-grid text-center>
+
+	  <ion-row align-items-center>
+	    <ion-col>
+	    	<p text-wrap *ngIf="isValidating">Validando, por favor espera...</p>
+	    	<p text-wrap *ngIf="!isValidating && isValid">Hemos validado el código de forma correcta</p>
+	    	<p text-wrap *ngIf="!isValidating && !isValid">Parece que el enlace que has proporcionado no es válido o ya ha caducado, si crees que es un error ponte en contacto con nuestro personal, gracias</p>
+	    </ion-col>
+	  </ion-row>
+
+	  <ion-row justify-content-center>
+	    <ion-col align-self-center>
+	      <button *ngIf="!isValidating && isValid" ion-button block color="primary" (click)="changePage()">CONTINUAR</button>
+	      <button *ngIf="!isValidating && !isValid" ion-button block color="dark" (click)="changePage()">ENTENDIDO</button>
+	    </ion-col>
+	  </ion-row>
+
+	</ion-grid>
+
+</ion-content>

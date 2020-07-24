@@ -1,0 +1,136 @@
+<ion-menu id="mainMenu" [content]="content">
+
+	<ion-content no-margin no-padding>
+
+		<div class="main-header" no-border [class.no-radius]="listWallets">
+
+			<ion-list no-lines no-margin no-padding *ngIf="!listWallets">
+				<ion-item menuClose *ngIf="!listWallets">
+					<ion-avatar item-start>
+						<img [src]="imageURL">
+					</ion-avatar>
+					<h2 ion-text text-capitalize color="light">{{ shortname }}</h2>
+					<p ion-text color="light"><small>{{ username | lowercase }}</small></p>
+				</ion-item>
+			</ion-list>
+
+			<ion-list no-lines no-margin no-padding [@expandAnimation] *ngIf="listWallets">
+				<ion-item tappable menuClose [@animateToRight] (click)="switchWallet('own')">
+					<ion-avatar item-start>
+						<img [src]="ownerImageURL">
+					</ion-avatar>
+					<h2 ion-text text-capitalize color="light">{{ ownerShortname }}</h2>
+					<p ion-text color="light"><small>{{ ownerUsername | lowercase }}</small></p>
+				</ion-item>
+
+				<ion-item tappable menuClose [@animateToLeft] *ngFor="let company of wallets"
+					(click)="switchWallet(company.rif)">
+					<ion-avatar item-start>
+						<img src="{{ company.url }}">
+					</ion-avatar>
+					<h2 ion-text text-capitalize color="light">{{ company.alias }}</h2>
+					<p ion-text color="light"><small>{{ company.rif }}</small></p>
+				</ion-item>
+			</ion-list>
+
+			<div text-right class="swap-button-show" *ngIf="(!listWallets && wallets.length > 1) || loadingWallets">
+				<button ion-button icon-only round [class.loading]="loadingWallets" [disabled]="loadingWallets"
+					(click)="showWallets()">
+					<ion-icon name="custom-swap"></ion-icon>
+				</button>
+			</div>
+
+			<div text-center class="swap-button-hide" *ngIf="listWallets">
+				<button ion-button icon-start color="light" clear (click)="hideWallets()">
+					<ion-icon name="md-arrow-dropup"></ion-icon> Cancelar
+				</button>
+			</div>
+		</div>
+
+		<ion-list id="sidenav" no-lines>
+
+			<button ion-item menuClose (click)="openPage('AccountResumePage')">
+				<img width="15" height="15" src="assets/icon/home.png" /> Inicio
+			</button>
+
+			<button ion-item menuClose (click)="openPage('MovementsPage')">
+				<img width="15" height="15" src="assets/icon/movements.png" /> Movimientos
+			</button>
+
+			<button ion-item menuClose (click)="openPage('SendMoneyPage')" *ngIf="!userWallet">
+				<img width="15" height="15" src="assets/icon/movements.png" /> Enviar Fondos
+			</button>
+
+			<button ion-item menuClose (click)="openPage('ReceiveMoneyPage')" *ngIf="!userWallet">
+				<img width="15" height="15" src="assets/icon/movements.png" /> Recibir Fondos
+			</button>
+
+			<button ion-item (click)="menuHandler(0)" *ngIf="userWallet">
+				<img width="15" height="15" src="assets/icon/transactions.png" /> Transacciones
+				<ion-icon item-end [name]="showSubmenuA ? 'ios-arrow-up' : 'ios-arrow-down'"></ion-icon>
+			</button>
+			<ion-item-group submenu [class.visible]="showSubmenuA" *ngIf="userWallet">
+				<button ion-item submenu-item menuClose (click)="openPage('SendMoneyPage')">
+					Enviar Fondos
+				</button>
+				<button ion-item submenu-item menuClose (click)="openPage('ReceiveMoneyPage')">
+					Recibir Fondos
+				</button>
+				<button ion-item submenu-item menuClose (click)="openPage('SendPendingPage')">
+					Cuentas Por Pagar
+					<ion-badge *ngIf="linksCount.send > 0" item-end color="danger">{{ linksCount.send }}</ion-badge>
+				</button>
+				<button ion-item submenu-item menuClose (click)="openPage('ReceivePendingPage')">
+					Cuentas Por Cobrar
+					<ion-badge *ngIf="linksCount.receive > 0" item-end color="danger">{{ linksCount.receive }}
+					</ion-badge>
+				</button>
+			</ion-item-group>
+
+			<button ion-item (click)="menuHandler(1)">
+				<img width="15" height="15" src="assets/icon/recharge.png" /> Recargar | Retirar
+				<ion-icon item-end [name]="showSubmenuB ? 'ios-arrow-up' : 'ios-arrow-down'"></ion-icon>
+			</button>
+			<ion-item-group submenu [class.visible]="showSubmenuB">
+				<button ion-item submenu-item menuClose (click)="openPage('AccountRechargePage')">
+					Recargar Cuenta
+				</button>
+				<button ion-item submenu-item menuClose (click)="openPage('MobileRechargePage')" *ngIf="userWallet && currentCurrency == 'VEF'">
+					Recargar Saldo
+				</button>
+				<button ion-item submenu-item menuClose (click)="openPage('AccountWithdrawPage')">
+					Retirar Fondos
+				</button>
+			</ion-item-group>
+
+			<button ion-item (click)="menuHandler(2)" *ngIf="userWallet">
+				<img width="15" height="15" src="assets/icon/settings.png" /> Opciones
+				<ion-icon item-end [name]="showSubmenuC ? 'ios-arrow-up' : 'ios-arrow-down'"></ion-icon>
+			</button>
+			<ion-item-group submenu [class.visible]="showSubmenuC" *ngIf="userWallet">
+				<button ion-item submenu-item menuClose (click)="openPage('AccountPage')">
+					Perfil
+				</button>
+				<button ion-item submenu-item menuClose (click)="openPage('AppSettingsPage')">
+					Ajustes
+				</button>
+			</ion-item-group>
+
+		</ion-list>
+
+	</ion-content>
+
+	<ion-footer no-border>
+		<ion-toolbar>
+			<button ion-item menuClose block clear (click)="openPage('AppCurrencyPage')">
+				<img width="15" height="15" src="assets/icon/currency.png" /> Moneda
+			</button>
+			<button ion-item menuClose block clear (click)="exit()">
+				<img width="15" height="15" src="assets/icon/exit.png" /> Salir
+			</button>
+		</ion-toolbar>
+	</ion-footer>
+
+</ion-menu>
+
+<ion-nav id="nav" #content [root]="rootPage" [rootParams]="rootPageParams"></ion-nav>
