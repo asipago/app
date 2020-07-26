@@ -115,7 +115,7 @@ export class MyApp {
       ).subscribe();
 
       this.authProvider.authUser.subscribe(event => {
-        console.log(event);
+        //console.log(event);
         switch (event) {
           case "invalid-token": case "token-expired": case "logout":
             this.rootPage = 'AccountLoginPage';

@@ -119,7 +119,6 @@
         <splash height="2436" src="resources/ios/splash/Default-2436h.png" width="1125" />
         <splash height="1125" src="resources/ios/splash/Default-Landscape-2436h.png" width="2436" />
     </platform>
-    <allow-navigation href="http://192.168.1.2:8100" />
     <plugin name="cordova-plugin-contacts" spec="^3.0.1" />
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.5">
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="24.1.1+" />
@@ -167,4 +166,5 @@
         <variable name="GOOGLE_API_KEY_FOR_ANDROID" value="AIzaSyDmDS8WYY1kEk1SUDTm9tcDHKJpInALVNQ" />
     </plugin>
     <allow-navigation href="http://localhost:8100" sessionid="fdc7eebd" />
+    <allow-navigation href="http://192.168.1.7:8100" />
 </widget>

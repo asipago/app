@@ -24,7 +24,7 @@ export class AuthProvider {
 
   public authUser = new Subject<string>();
 
-  private develop: boolean = false;
+  private develop: boolean = true;
   private deviceData: DeviceModel;
 
   constructor(

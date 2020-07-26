@@ -208,7 +208,7 @@ export class AccountPage {
   updateProfile() {
     let phoneBerror = false;
 
-    const phoneBnumber = this.mainForm.value.phoneB.replace(/\D/g, '');
+    const phoneBnumber = this.mainForm.value.length > 0 ? this.mainForm.value.phoneB.replace(/\D/g, '') : "";
 
     if (phoneBnumber != "" && phoneBnumber.length != 10) {
       phoneBerror = true;
@@ -271,8 +271,11 @@ export class AccountPage {
   }
 
   private formatPhone(number) {
-    number = number.replace(/\D/g, '');
-    return number.replace(/^(\d{0,3})(\d{0,3})(\d{0,4})/, '($1) $2-$3');
+    if (number) {
+      number = number.replace(/\D/g, '');
+      number = number.replace(/^(\d{0,3})(\d{0,3})(\d{0,4})/, '($1) $2-$3');
+    }
+    return number;
   }
 
   private showToast(message: string) {

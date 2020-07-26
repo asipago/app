@@ -5,7 +5,7 @@
 		<div class="main-header" no-border [class.no-radius]="listWallets">
 
 			<ion-list no-lines no-margin no-padding *ngIf="!listWallets">
-				<ion-item menuClose *ngIf="!listWallets">
+				<ion-item menuClose *ngIf="!listWallets" (click)="openPage('AccountPage')">
 					<ion-avatar item-start>
 						<img [src]="imageURL">
 					</ion-avatar>
