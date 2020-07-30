@@ -63,7 +63,7 @@ export class AccountRegisterVerifyPage {
         .pipe(finalize(() => loading.dismiss()))
       	.subscribe((data: any) => {
       		if(data.status == 'ok') {
-            this.navCtrl.setRoot("AccountLoginPagePage");
+            this.navCtrl.setRoot("AccountLoginPage");
             this.showToast("Cuenta verificada, ya puedes iniciar sesión...");
       		} else {
       			this.showToast("Ha ocurrido un error, por favor intenta mas tarde...");

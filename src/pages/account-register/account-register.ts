@@ -44,13 +44,13 @@ export class AccountRegisterPage {
       firstname: new FormControl('', Validators.compose([
         Validators.minLength(5),
         Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z \s]*$'),
+        Validators.pattern('^[a-zA-ZñáéíóúüÑ \s]*$'),
         Validators.required
       ])),
       lastname: new FormControl('', Validators.compose([
         Validators.minLength(5),
         Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z \s]*$'),
+        Validators.pattern('^[a-zA-ZñáéíóúüÑ \s]*$'),
         Validators.required
       ])),
       nationality: new FormControl('V', Validators.required),
@@ -71,7 +71,7 @@ export class AccountRegisterPage {
       city: new FormControl('', Validators.compose([
         Validators.minLength(5),
         Validators.maxLength(45),
-        Validators.pattern('^[a-zA-Z \s]*$'),
+        Validators.pattern('^[a-zA-ZñáéíóúüÑ \s]*$'),
         Validators.required
       ])),
       zip: new FormControl('', Validators.compose([
