@@ -14,22 +14,36 @@
 
 				<ion-list>
 
-	        <ion-item no-lines>
+	        <ion-item no-lines *ngIf="bank">
 	          <p>Banco:</p>
 	          <h1 ion-text color="secondary">{{ bank }}</h1>
 	        </ion-item>
 
-	        <ion-item no-lines>
+	        <ion-item no-lines *ngIf="reference">
 	          <p>Referencia:</p>
 	          <h1 ion-text color="secondary">{{ reference }}</h1>
+	        </ion-item>
+
+	        <ion-item no-lines *ngIf="card">
+	          <p>Tarjeta:</p>
+	          <h1 ion-text color="secondary">{{ card }}</h1>
+	        </ion-item>
+
+	        <ion-item no-lines *ngIf="amount">
+	          <p>Monto:</p>
+	          <h1 ion-text color="secondary">{{ amount }}</h1>
 	        </ion-item>
 
 	        <ion-item no-lines>
 	          <small ion-text text-wrap color="secondary">En breves segundos será acreditada la recarga de saldo, podrás ver el detalle en tu lista de movimientos.</small>
 	        </ion-item>
 
-	        <ion-item no-lines>
+	        <ion-item no-lines *ngIf="bank">
 	          <small ion-text text-wrap color="secondary">Si el monto no ha sido acreditado en menos de 5 minutos por favor verifica que el número de operación bancaria sea correcto y que la transacción fuera procesada en la entidad bancaria {{ bank }} de forma correcta.</small>
+	        </ion-item>
+
+	        <ion-item no-lines *ngIf="card">
+	          <small ion-text text-wrap color="secondary">Si el monto no ha sido acreditado de forma inmediata por favor verifica tanto la tarjeta como los datos proporcionados.</small>
 	        </ion-item>
 
 				</ion-list>

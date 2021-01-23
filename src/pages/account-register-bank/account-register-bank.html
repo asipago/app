@@ -35,6 +35,11 @@
 							</ion-select>
 						</ion-item>
 
+						<ion-item *ngIf="currentCurrency == 'USD'">
+							<ion-label floating>Routing / ABA</ion-label>
+							<ion-input type="tel" formControlName="routing"></ion-input>
+						</ion-item>
+
 						<ion-item>
 							<ion-label floating>Cuenta</ion-label>
 							<ion-input type="tel" formControlName="account"></ion-input>

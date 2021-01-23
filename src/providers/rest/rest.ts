@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 
 import { SERVER_URL } from "@app/config";
 
+import { CardModel } from '@models/card-model';
+import { CardInterface } from '@interfaces/card-interface';
+
 export interface walletFunds {
 	funds: number;
 	withheld: number;
@@ -10,6 +13,8 @@ export interface walletFunds {
 
 @Injectable()
 export class RestProvider {
+
+	private readonly channel = "APP";
 
 	constructor(private readonly httpClient: HttpClient) { }
 
@@ -110,10 +115,11 @@ export class RestProvider {
 		return this.httpClient.get(`${SERVER_URL}/banks/accounts`);
 	}
 
-	registerBankAccount(bank: number, account: string, code: string, type: string, email: string) {
+	registerBankAccount(bank: number, routing: string, account: string, code: string, type: string, email: string) {
 		return this.httpClient.post(`${SERVER_URL}/banks/account`, {
 			code: code,
 			bank: bank,
+			routing: routing,
 			account: account,
 			type: type,
 			email: email
@@ -131,7 +137,7 @@ export class RestProvider {
 	registerTransactionDeposit(bank: number, reference: string) {
 		return this.httpClient.post(`${SERVER_URL}/transactions/deposit`, {
 			reference: reference,
-			channel: "APP",
+			channel: this.channel,
 			bank: bank
 		});
 	}
@@ -140,7 +146,7 @@ export class RestProvider {
 		return this.httpClient.post(`${SERVER_URL}/transactions/Withdraw`, {
 			account: account,
 			amount: amount,
-			channel: "APP",
+			channel: this.channel,
 			bank: bank
 		});
 	}
@@ -151,7 +157,7 @@ export class RestProvider {
 			carrier: carrier,
 			phone: number,
 			amount: value,
-			channel: "APP"
+			channel: this.channel
 		});
 	}
 
@@ -223,7 +229,7 @@ export class RestProvider {
 
 	processLink(code: string, pin: string, location: string, qr?: boolean) {
 		return this.httpClient.post(`${SERVER_URL}/links/process`, {
-			channel: "APP", code: code, pin: pin, qr: qr, location: location
+			channel: this.channel, code: code, pin: pin, qr: qr, location: location
 		});
 	}
 
@@ -260,7 +266,7 @@ export class RestProvider {
 			type: type,
 			doc: document,
 			location: geolocation,
-			channel: "APP",
+			channel: this.channel,
 			rel: fromQR,
 			pin: pin
 		});
@@ -325,5 +331,33 @@ export class RestProvider {
 		return this.httpClient.post(`${SERVER_URL}/settings/rate`, {
 			currency: value
 		}).toPromise();
+	}
+
+	/* CARDS */
+
+	getCards() {
+		return this.httpClient.get(`${SERVER_URL}/cards`);
+	}
+
+	registerCard(card: CardModel) {
+		return this.httpClient.post(`${SERVER_URL}/cards`, {
+			type: card.type,
+			number: card.number,
+			month: card.month,
+			year: card.year,
+			cvc: card.cvc
+		});
+	}
+
+	removeCard(number: string) {
+		return this.httpClient.post(`${SERVER_URL}/cards/remove`, {
+			id: number
+		});
+	}
+
+	addFundsWithCard(card: string, amount: string, geolocation: string) {
+		return this.httpClient.post(`${SERVER_URL}/cards/recharge`, {
+			amount: amount, card: card, location: geolocation, channel: this.channel
+		});
 	}
 }

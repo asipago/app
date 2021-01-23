@@ -63,7 +63,7 @@ export class AccountWithdrawConfirmPage {
       this.showToast("Por favor ingrese un monto");
     } else if(this.availableFunds < this.mainForm.value.amount) {
       loading.dismiss();
-      this.showToast("Solo puede retirar " + this.availableFunds + " Bs.S");
+      this.showToast("Solo puede retirar " + this.availableFunds + " " + this.currencySymbol);
     } else {
       this.restProvider
           .registerTransactionWithdraw(this.account.bank.id, this.mainForm.value.amount, this.account.id)

@@ -100,4 +100,12 @@
 
 	</form>
 
+	<ion-grid *ngIf="currencySymbol != 'BS'">
+		<ion-row justify-content-center>
+			<ion-col align-self-center>
+				<button ion-button block color="secondary" type="button" (click)="useCard()">UTILIZAR TARJETA</button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
 </ion-content>

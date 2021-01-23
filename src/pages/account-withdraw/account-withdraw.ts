@@ -55,7 +55,7 @@ export class AccountWithdrawPage {
             this.accounts.push({
               id: data[i].id,
               code: data[i].code,
-              type: data[i].type == "S" ? 'Ahorro' : 'Corriente',
+              type: this.dataProvider.getType(data[i].type),
               verified: data[i].verified,
               bank: this.dataProvider.getBank(data[i].bank)
             });

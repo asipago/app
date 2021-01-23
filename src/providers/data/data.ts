@@ -188,4 +188,15 @@ export class DataProvider {
     this.currency = currency;
   }
 
+  getType(value: string, type?: string) {
+    switch (type) {
+      default:
+        if (value == "S") return this.currency == 'USD' ? 'Saving' : 'Ahorro';
+        else return this.currency == 'USD' ? 'Checking' : 'Corriente';
+      case "card":
+        if (value == "C") return this.currency == 'USD' ? 'Credit' : 'Crédito';
+        else return this.currency == 'USD' ? 'Debit' : 'Débito';
+    }
+  }
+
 }

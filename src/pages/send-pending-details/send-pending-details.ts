@@ -104,10 +104,11 @@ export class SendPendingDetailsPage {
               this.showToast("¡Pago Realizado!");
               this.navCtrl.setRoot('AccountResumePage');
             }, error => {
-              let message = 'Error al conectar con el servidor, por favor revise su conexión';
+              let message = '';
               switch(error.err) {
                 case "Not enough funds": message = "No posee fondos suficientes"; break;
                 case "Invalid PIN": message = "¡PIN Inválido!"; break;
+                default: message = 'Error al conectar con el servidor, por favor revise su conexión'; break;
               } this.showToast(message);
             });
     });

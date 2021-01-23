@@ -48,7 +48,7 @@
           <p ion-text text-wrap color="secondary">{{ movement.concept }}</p>
         </ion-item>
 
-        <ion-item>
+        <ion-item *ngIf="movement.type != 'IN'">
           <p>Ubicación:</p>
           <p ion-text color="secondary">{{ movement.location }}</p>
         </ion-item>

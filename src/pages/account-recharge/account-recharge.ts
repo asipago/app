@@ -220,4 +220,6 @@ export class AccountRechargePage {
     toast.present();
   }
 
+  useCard() { this.navCtrl.push('CardListPage'); }
+
 }

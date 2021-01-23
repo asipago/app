@@ -13,12 +13,18 @@ export class AccountRechargeApprovedPage {
   public bank: string;
   public reference: string;
 
+  public card: string;
+  public amount: string;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams
   ) {
     this.bank = navParams.get('bank');
     this.reference = navParams.get('reference');
+    
+    this.card = navParams.get('card');
+    this.amount = navParams.get('amount');
   }
 
   goHome() {

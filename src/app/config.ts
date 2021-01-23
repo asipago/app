@@ -10,8 +10,7 @@ export const FAIO_NAME: string = "auth_faio",
 export const HOSTING_URL: string = "https://www.asipago.com";
 
 export const SERVER_URL: string = "https://api.asipago.com";
-//export const SERVER_URL: string = "https://api.asipago.com:1464";
-//export const SERVER_URL: string = "http://192.168.1.4:1337";
+//export const SERVER_URL: string = "http://192.168.1.7:1337";
 export const SERVER_GEO_API: string = SERVER_URL + "/geolocation";
 
 /* export const CURRENCY_SYMBOL: string = "BS";

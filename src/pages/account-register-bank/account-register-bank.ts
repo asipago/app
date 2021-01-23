@@ -35,8 +35,12 @@ export class AccountRegisterBankPage {
   ) {
     this.currentCurrency = "";
     this.mainForm = this.formBuilder.group({
+      routing:  new FormControl('', Validators.compose([
+        Validators.pattern('^[0-9]{9}?$'),
+        Validators.required
+      ])),
       account:  new FormControl('', Validators.compose([
-        Validators.pattern('^[0-9]{20}?$'),
+        Validators.pattern('^[0-9]{12,20}?$'),
         Validators.required
       ])),
       type: ['', Validators.required],
@@ -57,29 +61,38 @@ export class AccountRegisterBankPage {
   }
 
   registerAccount() {
-  	if(this.mainForm.value.account.startsWith(this.selectedBank.code)) {
-      let loading = this.loadingCtrl.create({
-        spinner: 'bubbles',
-        content: 'Verificando Datos'
-      });
+    if (this.currentCurrency == "USD") {
+      this.createAccount();
+    } else {
+      if(this.mainForm.value.account.startsWith(this.selectedBank.code)) {
+        this.createAccount();
+      } else {
+        this.showToast("Número de cuenta incorrecto");
+      }
+    }
+  }
 
-      loading.present();
+  private createAccount() {
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Verificando Datos'
+    });
 
-      this.restProvider
-          .registerBankAccount(
-            this.selectedBank.id,
-            this.mainForm.value.account,
-            this.selectedBank.code,
-            this.mainForm.value.type,
-            this.mainForm.value.email
-          )
-          .pipe(finalize(() => loading.dismiss()))
-          .subscribe((data: any) => {
-            this.viewCtrl.dismiss();
-          }, err => this.handleError(err));
-  	} else {
-      this.showToast("Número de cuenta incorrecto");
-	  }
+    loading.present();
+
+    this.restProvider
+        .registerBankAccount(
+          this.selectedBank.id,
+          this.mainForm.value.routing,
+          this.mainForm.value.account,
+          this.selectedBank.code,
+          this.mainForm.value.type,
+          this.mainForm.value.email
+        )
+        .pipe(finalize(() => loading.dismiss()))
+        .subscribe((data: any) => {
+          this.viewCtrl.dismiss();
+        }, err => this.handleError(err));
   }
 
   private handleError(error: any) {

@@ -1,0 +1,370 @@
+<ion-content no-padding no-margin>
+
+	<div text-center class="main-header">
+	  <div>
+		<button ion-button clear icon-only color="ligth" (click)="dismiss()">
+		  <ion-icon name="arrow-back"></ion-icon>
+		</button>
+		<h4 ion-text no-margin color="light">
+		  <small>NUEVA</small><br/>
+		  TARJETA
+		</h4>
+		<button ion-button icon-only clear color="light" class="hidden">
+			<ion-icon name="menu"></ion-icon>
+		</button>
+	  </div>
+	</div>
+
+	<form [formGroup]="mainForm" (ngSubmit)="registerCard()">
+
+		<ion-grid text-center>
+
+			<ion-row justify-content-center>
+				<ion-col align-self-center>
+
+					<ion-list>
+
+						<!-- <ion-item>
+							<ion-label floating>Tipo</ion-label>
+							<ion-select formControlName="type" interface="action-sheet">
+								<ion-option value="D">{{ currentCurrency == 'USD' ? 'Debit' : 'Débito' }}</ion-option>
+								<ion-option value="C">{{ currentCurrency == 'USD' ? 'Credit' : 'Crédito' }}</ion-option>
+							</ion-select>
+						</ion-item> -->
+
+						<ion-item>
+							<ion-label floating>Número</ion-label>
+							<ion-input type="tel" maxlength="20" formControlName="cardNumber" #ccNumber (keyup)="creditCardNumberSpacing()"></ion-input>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Mes / Año</ion-label>
+							<ion-datetime displayFormat="MM/YYYY" pickerFormat="MM YYYY" formControlName="date" min="2000" max="{{allowedYears}}"></ion-datetime>
+						</ion-item>
+						<!-- <ion-item>
+							<ion-label floating>Mes</ion-label>
+							<ion-select formControlName="month" interface="action-sheet">
+								<ion-option value="1">01</ion-option>
+								<ion-option value="2">02</ion-option>
+								<ion-option value="3">03</ion-option>
+								<ion-option value="4">04</ion-option>
+								<ion-option value="5">05</ion-option>
+								<ion-option value="6">06</ion-option>
+								<ion-option value="7">07</ion-option>
+								<ion-option value="8">08</ion-option>
+								<ion-option value="9">09</ion-option>
+								<ion-option value="10">10</ion-option>
+								<ion-option value="11">11</ion-option>
+								<ion-option value="12">12</ion-option>
+							</ion-select>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Año</ion-label>
+							<ion-select formControlName="year" interface="action-sheet">
+								<ion-option value="2015">2015</ion-option>
+								<ion-option value="2016">2016</ion-option>
+								<ion-option value="2017">2017</ion-option>
+								<ion-option value="2018">2018</ion-option>
+								<ion-option value="2019">2019</ion-option>
+								<ion-option value="2020">2020</ion-option>
+								<ion-option value="2021">2021</ion-option>
+								<ion-option value="2022">2022</ion-option>
+								<ion-option value="2023">2023</ion-option>
+								<ion-option value="2024">2024</ion-option>
+								<ion-option value="2025">2025</ion-option>
+								<ion-option value="2026">2026</ion-option>
+								<ion-option value="2027">2027</ion-option>
+								<ion-option value="2028">2028</ion-option>
+								<ion-option value="2029">2029</ion-option>
+								<ion-option value="2030">2030</ion-option>
+							</ion-select>
+						</ion-item> -->
+
+						<ion-item>
+							<ion-label floating>CVC</ion-label>
+							<ion-input type="tel" maxlength="4" formControlName="cvc"></ion-input>
+						</ion-item>
+
+					</ion-list>
+
+				</ion-col>
+			</ion-row>
+
+			<ion-row justify-content-center *ngIf="currencySymbol != 'BS'">
+				<ion-col align-self-center>
+
+					<ion-list>
+
+						<ion-item>
+							<ion-label floating>Ciudad</ion-label>
+							<ion-input type="text" formControlName="city"></ion-input>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Dirección</ion-label>
+							<ion-input type="text" formControlName="address"></ion-input>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Cod. Postal</ion-label>
+							<ion-input type="tel" formControlName="zip"></ion-input>
+						</ion-item>
+
+						<ion-item>
+							<ion-label floating>Estado</ion-label>
+							<ion-select formControlName="country" interface="action-sheet" cancelText="Cancelar">
+								<ion-option value="AF">Afganistán</ion-option>
+								<ion-option value="AL">Albania</ion-option>
+								<ion-option value="DE">Alemania</ion-option>
+								<ion-option value="AD">Andorra</ion-option>
+								<ion-option value="AO">Angola</ion-option>
+								<ion-option value="AI">Anguilla</ion-option>
+								<ion-option value="AQ">Antártida</ion-option>
+								<ion-option value="AG">Antigua y Barbuda</ion-option>
+								<ion-option value="AN">Antillas Holandesas</ion-option>
+								<ion-option value="SA">Arabia Saudí</ion-option>
+								<ion-option value="DZ">Argelia</ion-option>
+								<ion-option value="AR">Argentina</ion-option>
+								<ion-option value="AM">Armenia</ion-option>
+								<ion-option value="AW">Aruba</ion-option>
+								<ion-option value="AU">Australia</ion-option>
+								<ion-option value="AT">Austria</ion-option>
+								<ion-option value="AZ">Azerbaiyán</ion-option>
+								<ion-option value="BS">Bahamas</ion-option>
+								<ion-option value="BH">Bahrein</ion-option>
+								<ion-option value="BD">Bangladesh</ion-option>
+								<ion-option value="BB">Barbados</ion-option>
+								<ion-option value="BE">Bélgica</ion-option>
+								<ion-option value="BZ">Belice</ion-option>
+								<ion-option value="BJ">Benin</ion-option>
+								<ion-option value="BM">Bermudas</ion-option>
+								<ion-option value="BY">Bielorrusia</ion-option>
+								<ion-option value="MM">Birmania</ion-option>
+								<ion-option value="BO">Bolivia</ion-option>
+								<ion-option value="BA">Bosnia y Herzegovina</ion-option>
+								<ion-option value="BW">Botswana</ion-option>
+								<ion-option value="BR">Brasil</ion-option>
+								<ion-option value="BN">Brunei</ion-option>
+								<ion-option value="BG">Bulgaria</ion-option>
+								<ion-option value="BF">Burkina Faso</ion-option>
+								<ion-option value="BI">Burundi</ion-option>
+								<ion-option value="BT">Bután</ion-option>
+								<ion-option value="CV">Cabo Verde</ion-option>
+								<ion-option value="KH">Camboya</ion-option>
+								<ion-option value="CM">Camerún</ion-option>
+								<ion-option value="CA">Canadá</ion-option>
+								<ion-option value="TD">Chad</ion-option>
+								<ion-option value="CL">Chile</ion-option>
+								<ion-option value="CN">China</ion-option>
+								<ion-option value="CY">Chipre</ion-option>
+								<ion-option value="VA">Ciudad del Vaticano (Santa Sede)</ion-option>
+								<ion-option value="CO">Colombia</ion-option>
+								<ion-option value="KM">Comores</ion-option>
+								<ion-option value="CG">Congo</ion-option>
+								<ion-option value="CD">Congo, República Democrática del</ion-option>
+								<ion-option value="KR">Corea</ion-option>
+								<ion-option value="KP">Corea del Norte</ion-option>
+								<ion-option value="CI">Costa de Marfíl</ion-option>
+								<ion-option value="CR">Costa Rica</ion-option>
+								<ion-option value="HR">Croacia (Hrvatska)</ion-option>
+								<ion-option value="CU">Cuba</ion-option>
+								<ion-option value="DK">Dinamarca</ion-option>
+								<ion-option value="DJ">Djibouti</ion-option>
+								<ion-option value="DM">Dominica</ion-option>
+								<ion-option value="EC">Ecuador</ion-option>
+								<ion-option value="EG">Egipto</ion-option>
+								<ion-option value="SV">El Salvador</ion-option>
+								<ion-option value="AE">Emiratos Árabes Unidos</ion-option>
+								<ion-option value="ER">Eritrea</ion-option>
+								<ion-option value="SI">Eslovenia</ion-option>
+								<ion-option value="ES" selected>España</ion-option>
+								<ion-option value="US">Estados Unidos</ion-option>
+								<ion-option value="EE">Estonia</ion-option>
+								<ion-option value="ET">Etiopía</ion-option>
+								<ion-option value="FJ">Fiji</ion-option>
+								<ion-option value="PH">Filipinas</ion-option>
+								<ion-option value="FI">Finlandia</ion-option>
+								<ion-option value="FR">Francia</ion-option>
+								<ion-option value="GA">Gabón</ion-option>
+								<ion-option value="GM">Gambia</ion-option>
+								<ion-option value="GE">Georgia</ion-option>
+								<ion-option value="GH">Ghana</ion-option>
+								<ion-option value="GI">Gibraltar</ion-option>
+								<ion-option value="GD">Granada</ion-option>
+								<ion-option value="GR">Grecia</ion-option>
+								<ion-option value="GL">Groenlandia</ion-option>
+								<ion-option value="GP">Guadalupe</ion-option>
+								<ion-option value="GU">Guam</ion-option>
+								<ion-option value="GT">Guatemala</ion-option>
+								<ion-option value="GY">Guayana</ion-option>
+								<ion-option value="GF">Guayana Francesa</ion-option>
+								<ion-option value="GN">Guinea</ion-option>
+								<ion-option value="GQ">Guinea Ecuatorial</ion-option>
+								<ion-option value="GW">Guinea-Bissau</ion-option>
+								<ion-option value="HT">Haití</ion-option>
+								<ion-option value="HN">Honduras</ion-option>
+								<ion-option value="HU">Hungría</ion-option>
+								<ion-option value="IN">India</ion-option>
+								<ion-option value="ID">Indonesia</ion-option>
+								<ion-option value="IQ">Irak</ion-option>
+								<ion-option value="IR">Irán</ion-option>
+								<ion-option value="IE">Irlanda</ion-option>
+								<ion-option value="BV">Isla Bouvet</ion-option>
+								<ion-option value="CX">Isla de Christmas</ion-option>
+								<ion-option value="IS">Islandia</ion-option>
+								<ion-option value="KY">Islas Caimán</ion-option>
+								<ion-option value="CK">Islas Cook</ion-option>
+								<ion-option value="CC">Islas de Cocos o Keeling</ion-option>
+								<ion-option value="FO">Islas Faroe</ion-option>
+								<ion-option value="HM">Islas Heard y McDonald</ion-option>
+								<ion-option value="FK">Islas Malvinas</ion-option>
+								<ion-option value="MP">Islas Marianas del Norte</ion-option>
+								<ion-option value="MH">Islas Marshall</ion-option>
+								<ion-option value="UM">Islas menores de Estados Unidos</ion-option>
+								<ion-option value="PW">Islas Palau</ion-option>
+								<ion-option value="SB">Islas Salomón</ion-option>
+								<ion-option value="SJ">Islas Svalbard y Jan Mayen</ion-option>
+								<ion-option value="TK">Islas Tokelau</ion-option>
+								<ion-option value="TC">Islas Turks y Caicos</ion-option>
+								<ion-option value="VI">Islas Vírgenes (EEUU)</ion-option>
+								<ion-option value="VG">Islas Vírgenes (Reino Unido)</ion-option>
+								<ion-option value="WF">Islas Wallis y Futuna</ion-option>
+								<ion-option value="IL">Israel</ion-option>
+								<ion-option value="IT">Italia</ion-option>
+								<ion-option value="JM">Jamaica</ion-option>
+								<ion-option value="JP">Japón</ion-option>
+								<ion-option value="JO">Jordania</ion-option>
+								<ion-option value="KZ">Kazajistán</ion-option>
+								<ion-option value="KE">Kenia</ion-option>
+								<ion-option value="KG">Kirguizistán</ion-option>
+								<ion-option value="KI">Kiribati</ion-option>
+								<ion-option value="KW">Kuwait</ion-option>
+								<ion-option value="LA">Laos</ion-option>
+								<ion-option value="LS">Lesotho</ion-option>
+								<ion-option value="LV">Letonia</ion-option>
+								<ion-option value="LB">Líbano</ion-option>
+								<ion-option value="LR">Liberia</ion-option>
+								<ion-option value="LY">Libia</ion-option>
+								<ion-option value="LI">Liechtenstein</ion-option>
+								<ion-option value="LT">Lituania</ion-option>
+								<ion-option value="LU">Luxemburgo</ion-option>
+								<ion-option value="MK">Macedonia, Ex-República Yugoslava de</ion-option>
+								<ion-option value="MG">Madagascar</ion-option>
+								<ion-option value="MY">Malasia</ion-option>
+								<ion-option value="MW">Malawi</ion-option>
+								<ion-option value="MV">Maldivas</ion-option>
+								<ion-option value="ML">Malí</ion-option>
+								<ion-option value="MT">Malta</ion-option>
+								<ion-option value="MA">Marruecos</ion-option>
+								<ion-option value="MQ">Martinica</ion-option>
+								<ion-option value="MU">Mauricio</ion-option>
+								<ion-option value="MR">Mauritania</ion-option>
+								<ion-option value="YT">Mayotte</ion-option>
+								<ion-option value="MX">México</ion-option>
+								<ion-option value="FM">Micronesia</ion-option>
+								<ion-option value="MD">Moldavia</ion-option>
+								<ion-option value="MC">Mónaco</ion-option>
+								<ion-option value="MN">Mongolia</ion-option>
+								<ion-option value="MS">Montserrat</ion-option>
+								<ion-option value="MZ">Mozambique</ion-option>
+								<ion-option value="NA">Namibia</ion-option>
+								<ion-option value="NR">Nauru</ion-option>
+								<ion-option value="NP">Nepal</ion-option>
+								<ion-option value="NI">Nicaragua</ion-option>
+								<ion-option value="NE">Níger</ion-option>
+								<ion-option value="NG">Nigeria</ion-option>
+								<ion-option value="NU">Niue</ion-option>
+								<ion-option value="NF">Norfolk</ion-option>
+								<ion-option value="NO">Noruega</ion-option>
+								<ion-option value="NC">Nueva Caledonia</ion-option>
+								<ion-option value="NZ">Nueva Zelanda</ion-option>
+								<ion-option value="OM">Omán</ion-option>
+								<ion-option value="NL">Países Bajos</ion-option>
+								<ion-option value="PA">Panamá</ion-option>
+								<ion-option value="PG">Papúa Nueva Guinea</ion-option>
+								<ion-option value="PK">Paquistán</ion-option>
+								<ion-option value="PY">Paraguay</ion-option>
+								<ion-option value="PE">Perú</ion-option>
+								<ion-option value="PN">Pitcairn</ion-option>
+								<ion-option value="PF">Polinesia Francesa</ion-option>
+								<ion-option value="PL">Polonia</ion-option>
+								<ion-option value="PT">Portugal</ion-option>
+								<ion-option value="PR">Puerto Rico</ion-option>
+								<ion-option value="QA">Qatar</ion-option>
+								<ion-option value="UK">Reino Unido</ion-option>
+								<ion-option value="CF">República Centroafricana</ion-option>
+								<ion-option value="CZ">República Checa</ion-option>
+								<ion-option value="ZA">República de Sudáfrica</ion-option>
+								<ion-option value="DO">República Dominicana</ion-option>
+								<ion-option value="SK">República Eslovaca</ion-option>
+								<ion-option value="RE">Reunión</ion-option>
+								<ion-option value="RW">Ruanda</ion-option>
+								<ion-option value="RO">Rumania</ion-option>
+								<ion-option value="RU">Rusia</ion-option>
+								<ion-option value="EH">Sahara Occidental</ion-option>
+								<ion-option value="KN">Saint Kitts y Nevis</ion-option>
+								<ion-option value="WS">Samoa</ion-option>
+								<ion-option value="AS">Samoa Americana</ion-option>
+								<ion-option value="SM">San Marino</ion-option>
+								<ion-option value="VC">San Vicente y Granadinas</ion-option>
+								<ion-option value="SH">Santa Helena</ion-option>
+								<ion-option value="LC">Santa Lucía</ion-option>
+								<ion-option value="ST">Santo Tomé y Príncipe</ion-option>
+								<ion-option value="SN">Senegal</ion-option>
+								<ion-option value="SC">Seychelles</ion-option>
+								<ion-option value="SL">Sierra Leona</ion-option>
+								<ion-option value="SG">Singapur</ion-option>
+								<ion-option value="SY">Siria</ion-option>
+								<ion-option value="SO">Somalia</ion-option>
+								<ion-option value="LK">Sri Lanka</ion-option>
+								<ion-option value="PM">St Pierre y Miquelon</ion-option>
+								<ion-option value="SZ">Suazilandia</ion-option>
+								<ion-option value="SD">Sudán</ion-option>
+								<ion-option value="SE">Suecia</ion-option>
+								<ion-option value="CH">Suiza</ion-option>
+								<ion-option value="SR">Surinam</ion-option>
+								<ion-option value="TH">Tailandia</ion-option>
+								<ion-option value="TW">Taiwán</ion-option>
+								<ion-option value="TZ">Tanzania</ion-option>
+								<ion-option value="TJ">Tayikistán</ion-option>
+								<ion-option value="TF">Territorios franceses del Sur</ion-option>
+								<ion-option value="TP">Timor Oriental</ion-option>
+								<ion-option value="TG">Togo</ion-option>
+								<ion-option value="TO">Tonga</ion-option>
+								<ion-option value="TT">Trinidad y Tobago</ion-option>
+								<ion-option value="TN">Túnez</ion-option>
+								<ion-option value="TM">Turkmenistán</ion-option>
+								<ion-option value="TR">Turquía</ion-option>
+								<ion-option value="TV">Tuvalu</ion-option>
+								<ion-option value="UA">Ucrania</ion-option>
+								<ion-option value="UG">Uganda</ion-option>
+								<ion-option value="UY">Uruguay</ion-option>
+								<ion-option value="UZ">Uzbekistán</ion-option>
+								<ion-option value="VU">Vanuatu</ion-option>
+								<ion-option value="VE">Venezuela</ion-option>
+								<ion-option value="VN">Vietnam</ion-option>
+								<ion-option value="YE">Yemen</ion-option>
+								<ion-option value="YU">Yugoslavia</ion-option>
+								<ion-option value="ZM">Zambia</ion-option>
+								<ion-option value="ZW">Zimbabue</ion-option>
+							</ion-select>
+						</ion-item>
+
+					</ion-list>
+
+				</ion-col>
+			</ion-row>
+
+			<ion-row justify-content-center>
+				<ion-col align-self-center>
+					<button ion-button block color="primary" type="submit"
+						[disabled]="!mainForm.valid">REGISTRAR</button>
+				</ion-col>
+			</ion-row>
+
+		</ion-grid>
+
+	</form>
+
+</ion-content>
