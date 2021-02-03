@@ -37,6 +37,7 @@ export class MyApp {
   currentCurrency: string;
 
   // private activePage: any;
+  private firstLoad: boolean = true;
 
   public showSubmenuA: boolean = false;
   public showSubmenuB: boolean = false;
@@ -118,7 +119,8 @@ export class MyApp {
         //console.log(event);
         switch (event) {
           case "invalid-token": case "token-expired": case "logout":
-            this.rootPage = 'AccountLoginPage';
+            if(!this.firstLoad)
+              this.rootPage = 'AccountLoginPage';
             break;
 
           case 'not-assigned':
@@ -159,6 +161,7 @@ export class MyApp {
             // NOT IMPLEMENTED YET: device-ok
             break;
         }
+        this.firstLoad = false;
       });
 
       this.deeplinks.route({

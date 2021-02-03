@@ -7,7 +7,7 @@
       </button>
 	  <h4 ion-text no-margin color="light">
 		  <small>DISPONIBLE</small><br/>
-		  {{ availableFunds | currency:currencySymbol:'code':'1.2-2':'es' }}
+		  {{ availableFunds | formatCurrency }}
 	  </h4>
       <button ion-button icon-only clear color="light" class="hidden">
         <ion-icon name="menu"></ion-icon>
@@ -42,7 +42,7 @@
 
 					  <ion-item no-lines>
 					    <ion-label floating>Monto:</ion-label>
-					    <ion-input type="tel" formControlName="amount" NumericMask></ion-input>
+					    <ion-input type="tel" formControlName="amount" CurrencyMask></ion-input>
 					  </ion-item>
 
 					  <ion-item no-lines>

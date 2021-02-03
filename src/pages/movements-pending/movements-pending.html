@@ -21,7 +21,7 @@
             <ion-avatar item-start>
               <img [src]="link.avatar">
             </ion-avatar>
-            <p>{{ link.amount | currency:currencySymbol:'code':'1.2-2':'es' }}</p>
+            <p>{{ link.amount | formatCurrency }}</p>
             <p><small>{{ link.createdAt }}</small></p>
             <p ion-text color="green" *ngIf="link.secure"><small>ENLACE PROTEGIDO</small></p>
             <p>{{ link.concept }}</p>

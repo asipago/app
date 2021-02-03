@@ -56,6 +56,7 @@ export class AppConfirmTokenPage {
             .subscribe((response: any) => {
               this.isValid = true;
               this.isValidating = false;
+              this.showToast("Datos validados correctamente")
             }, err => this.showToast("El enlace no es válido o ha expirado"));
       });
     }

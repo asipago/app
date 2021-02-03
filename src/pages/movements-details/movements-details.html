@@ -7,7 +7,7 @@
       </button>
 			<h4 ion-text no-margin color="light">
 				<small>{{ movement.user.username }}</small><br/>
-				{{ movement.amount | currency:currencySymbol:'code':'1.2-2':'es' }}
+				{{ movement.amount | formatCurrency }}
 			</h4>
       <button ion-button icon-only clear color="light" class="hidden">
         <ion-icon name="menu"></ion-icon>
@@ -38,9 +38,9 @@
         </ion-item>
 
         <ion-item>
-          <p ion-text color="secondary">Monto: {{ movement.amount | currency:currencySymbol:'code':'1.2-2':'es' }}</p>
+          <p ion-text color="secondary">Monto: {{ movement.amount | formatCurrency }}</p>
           <p ion-text color="secondary">Porcentaje: {{ movement.percentage }}</p>
-          <p ion-text text-wrap color="secondary">Monto después de la transacción: {{ movement.totalAmount | currency:currencySymbol:'code':'1.2-2':'es' }}</p>
+          <p ion-text text-wrap color="secondary">Monto después de la transacción: {{ movement.totalAmount | formatCurrency }}</p>
         </ion-item>
 
         <ion-item>

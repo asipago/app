@@ -44,7 +44,7 @@
               <p><small>{{ movement.date }}</small></p>
             </ion-col>
             <ion-col align-self-end text-right>
-              <h3 ion-text [color]="movement.type == 'IN' ? 'green' : 'orange'">{{ movement.type == 'IN' ? '+' : '-' }}{{ movement.amount | currency:currencySymbol:'code':'1.2-2':'es' }}</h3>
+              <h3 ion-text [color]="movement.type == 'IN' ? 'green' : 'orange'">{{ movement.type == 'IN' ? '+' : '-' }}{{ movement.amount | formatCurrency }}</h3>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -62,7 +62,7 @@
               <p><small>{{ movement.date }}</small></p>
             </ion-col>
             <ion-col align-self-end text-right>
-              <h3 ion-text color="green">+{{ movement.amount | currency:currencySymbol:'code':'1.2-2':'es' }}</h3>
+              <h3 ion-text color="green">+{{ movement.amount | formatCurrency }}</h3>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -80,7 +80,7 @@
               <p><small>{{ movement.date }}</small></p>
             </ion-col>
             <ion-col align-self-end text-right>
-              <h3 ion-text color="orange">-{{ movement.amount | currency:currencySymbol:'code':'1.2-2':'es' }}</h3>
+              <h3 ion-text color="orange">-{{ movement.amount | formatCurrency }}</h3>
             </ion-col>
           </ion-row>
         </ion-grid>

@@ -1,18 +1,17 @@
-import { Directive } from '@angular/core';
+import { Directive, ElementRef, HostListener } from '@angular/core';
 
-/**
- * Generated class for the MoneyMaskDirective directive.
- *
- * See https://angular.io/api/core/Directive for more info on Angular
- * Directives.
- */
 @Directive({
-  selector: '[money-mask]' // Attribute selector
+  selector: '[CurrencyMask]'
 })
 export class MoneyMaskDirective {
 
-  constructor() {
-    console.log('Hello MoneyMaskDirective Directive');
-  }
+  constructor(private el: ElementRef) { }
 
+  @HostListener('input', ['$event']) onInputChange(event) {
+    const initalValue = this.el.nativeElement.value;
+    this.el.nativeElement.value = initalValue.replace(/[^0-9\.]*/g, '');
+    if (initalValue !== this.el.nativeElement.value) {
+      event.stopPropagation();
+    }
+  }
 }

@@ -14,4 +14,5 @@ export interface UserInterface {
     zip: string;
     username: string;
     current: string;
+    image: string;
 }

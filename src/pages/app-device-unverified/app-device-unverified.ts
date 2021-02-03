@@ -29,40 +29,57 @@ export class AppDeviceUnverifiedPage {
     private fingerprint: FingerprintAIO,
     private readonly toastCtrl: ToastController,
     private readonly loadingCtrl: LoadingController,
-    public readonly authProvider: AuthProvider,
+    public authProvider: AuthProvider,
     public readonly storage: Storage
   ) {
     this.fingerprintCapable = false;
     this.username = this.navParams.get('username');
 
-  	this.fingerprintOptions = {
-  		clientId: "asipago-app",
-  		clientSecret: "asipago-master-app",
-      disableBackup: true,
-      localizedFallbackTitle: 'Validar Huella',
-      localizedReason: 'Por favor, coloca tu huella en el sensor del dispositivo'
-    };
-    
-    const versions = this.platform.versions();
-    
-    if(versions.android) {
-      const androidV = versions.android.num;
-      if (androidV > 5) {
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Cargando...'
+    });
+
+    loading.present();
+
+    this.platform.ready().then(() => {
+      this.fingerprintOptions = {
+        clientId: "asipago-app",
+        clientSecret: "asipago-master-app",
+        disableBackup: true,
+        localizedFallbackTitle: 'Validar Huella',
+        localizedReason: 'Por favor, coloca tu huella en el sensor del dispositivo'
+      };
+      
+      const versions = this.platform.versions();
+      
+      if(versions.android) {
+        const androidV = versions.android.num;
+        if (androidV > 5) {
+          this.checkFaio();
+        }
+      } else if (versions.ios) {
         this.checkFaio();
       }
-    } else if (versions.ios) {
-      this.checkFaio();
-    }
+
+      loading.dismiss();
+    }).catch(() => loading.dismiss());
   }
 
   private checkFaio() {
-    this.fingerprint.isAvailable().then(result => {
+    this.fingerprint.isAvailable().then(() => {
       this.fingerprintCapable = true;
-    });
+    }).catch(() => {});
   }
 
   showSmsValidation() {
     this.navCtrl.push("AppDeviceUnverifiedSmsPage", {
+      username: this.username
+    });
+  }
+  
+  showEmailValidation() {
+    this.navCtrl.push("AppDeviceUnverifiedEmailPage", {
       username: this.username
     });
   }
@@ -109,6 +126,7 @@ export class AppDeviceUnverifiedPage {
       .pipe(finalize(() => loading.dismiss()))
       .subscribe(data => {
         this.authProvider.setSession(data);
+        console.log(data);
         this.authProvider.checkDevice(true);
       }, err => this.handleError(err, geoLocation));
   }

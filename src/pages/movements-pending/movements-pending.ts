@@ -6,7 +6,7 @@ import { finalize } from 'rxjs/operators';
 import { RestProvider } from "@providers/rest/rest";
 import { DataProvider } from "@providers/data/data";
 
-import { SERVER_URL } from "@app/config";
+import { IMAGE_URL } from "@app/config";
 
 @IonicPage()
 @Component({
@@ -33,7 +33,6 @@ export class MovementsPendingPage {
   }
 
   private loadLinks() {
-    const timestamp = new Date().getTime();
     this.links.length = 0;
 
     let loading = this.loadingCtrl.create({
@@ -54,7 +53,7 @@ export class MovementsPendingPage {
               amount: data[i].amount,
               concept: data[i].concept,
               secure: data[i].secure,
-              avatar: `${SERVER_URL}/avatar/${data[i].user_gen}?` + timestamp
+              avatar: `${IMAGE_URL}/${data[i].user_gen}`
             });
           }
         }, err => this.handleError(err));

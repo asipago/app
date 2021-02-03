@@ -55,7 +55,9 @@
 		<ion-row align-items-center padding>
 			<ion-col>
 				<h1 ion-text color="light" no-margin>
-					<b>{{ funds - withheld | currency:'&nbsp;':'code':'1.2-2':'es' }}<span>{{ currencySymbol | uppercase }}</span></b>
+					<b>{{ funds - withheld | formatCurrency:'no-code-bs' }}<span>
+					<span *ngIf="currencySymbol == 'USD'">&nbsp;</span>
+					{{ currencySymbol | uppercase }}</span></b>
 				</h1>
 				<p ion-text color="light" no-margin><b>DISPONIBLE</b></p>
 			</ion-col>
@@ -64,14 +66,18 @@
 		<ion-row align-items-center>
 			<ion-col col-xs-12 col-md-6>
 				<h4 ion-text color="light" no-margin>
-					{{ funds | currency:'&nbsp;':'code':'1.2-2':'es' }}<span>{{ currencySymbol | uppercase }}</span>
+					{{ funds | formatCurrency:'no-code-bs' }}<span>
+					<span *ngIf="currencySymbol == 'USD'">&nbsp;</span>
+					{{ currencySymbol | uppercase }}</span>
 				</h4>
 				<p ion-text color="light" no-margin><b>FONDOS</b></p>
 			</ion-col>
 
 			<ion-col col-xs-12 col-md-6>
 				<h4 ion-text color="light" no-margin>
-					{{ withheld | currency:'&nbsp;':'code':'1.2-2':'es' }}<span>{{ currencySymbol | uppercase }}</span>
+					{{ withheld | formatCurrency:'no-code-bs' }}<span>
+					<span *ngIf="currencySymbol == 'USD'">&nbsp;</span>
+					{{ currencySymbol | uppercase }}</span>
 				</h4>
 				<p ion-text color="light" no-margin><b>DIFERIDO</b></p>
 			</ion-col>

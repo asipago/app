@@ -44,7 +44,7 @@ import { AuthInterceptor } from '@providers/auth/interceptor';
 import { PipesModule } from '@pipes/pipes.module';
 import { DirectivesModule } from '@directives/directives.module';
 
-import { registerLocaleData } from '@angular/common';
+import { CurrencyPipe, registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 
 import { MyApp } from './app.component';
@@ -122,7 +122,7 @@ const config = {
     RestProvider,
     AuthProvider,
     DataProvider,
-    FcmProvider
+    CurrencyPipe
   ]
 })
 export class AppModule {}

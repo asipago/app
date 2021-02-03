@@ -16,17 +16,29 @@
 	    </ion-col>
 	  </ion-row>
 
-	  <ion-row justify-content-center *ngIf="fingerprintCapable">
+	  <!-- <ion-row justify-content-center *ngIf="fingerprintCapable">
 	    <ion-col align-self-center>
 	      <button ion-button block color="primary" (click)="showFingerPrintDialog()">VALIDAR HUELLA</button>
+	    </ion-col>
+	  </ion-row> -->
+	    
+	  <ion-row justify-content-center>
+	    <ion-col text-center>
+	    	<p tappable (click)="showFingerPrintDialog()"><b><u>Huella Dactilar</u></b></p>
 	    </ion-col>
 	  </ion-row>
 	    
 	  <ion-row justify-content-center>
 	    <ion-col text-center>
-	    	<p tappable (click)="showSmsValidation()"><u>Validar mi identidad vía SMS</u></p>
+	    	<p tappable (click)="showEmailValidation()"><b><u>Correo Electrónico</u></b></p>
 	    </ion-col>
 	  </ion-row>
+	    
+	  <!-- <ion-row justify-content-center>
+	    <ion-col text-center>
+	    	<p tappable (click)="showSmsValidation()"><b><u>Mensaje de Texto</u></b></p>
+	    </ion-col>
+	  </ion-row> -->
 
 	</ion-grid>
 

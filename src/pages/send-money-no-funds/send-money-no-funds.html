@@ -6,7 +6,7 @@
 			<ion-col>
 				<img class="title-image" src="assets/imgs/send-money-no-funds.png" width="100" height="100" /><br />
 				<h4>Fondos Disponibles</h4>
-				<h5 ion-text color="secondary">{{ availableFunds | currency:currencySymbol:'code':'1.2-2':'es' }}</h5>
+				<h5 ion-text color="secondary">{{ availableFunds | formatCurrency }}</h5>
 			</ion-col>
 		</ion-row>
 

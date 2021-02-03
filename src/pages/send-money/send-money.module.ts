@@ -1,18 +1,16 @@
 import { NgModule } from '@angular/core';
-import { CurrencyPipe } from '@angular/common';
 import { IonicPageModule } from 'ionic-angular';
 import { SendMoneyPage } from './send-money';
+import { PipesModule } from '@pipes/pipes.module';
 import { DirectivesModule } from '@directives/directives.module';
 
 @NgModule({
   declarations: [
     SendMoneyPage,
   ],
-	providers: [
-		CurrencyPipe
-	],
   imports: [
-  	DirectivesModule,
+    PipesModule,
+    DirectivesModule,
     IonicPageModule.forChild(SendMoneyPage),
   ],
 })

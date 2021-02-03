@@ -17,12 +17,13 @@ export class UserModel implements UserInterface {
         private _address: string,
         private _phoneA: string,
         private _phoneB: string,
-        private _email: string,
         private _country: string,
         private _state: string,
         private _zip: string,
         private _active: boolean,
         private _username: string,
+        private _image: string,
+        private _email: string,
         private _deletedAt: string,
         private _deletedReason: string,
         private _createdAt: string,
@@ -67,6 +68,10 @@ export class UserModel implements UserInterface {
 
     get email(): string {
         return this._email;
+    }
+
+    get image(): string {
+        return this._image;
     }
 
     get country(): string {

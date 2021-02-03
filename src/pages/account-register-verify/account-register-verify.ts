@@ -41,7 +41,7 @@ export class AccountRegisterVerifyPage {
   public sendCode() {
     this.canResend = false;
     this.sendError = false;
-    this.restProvider.generateCode(this.username, 'verify').subscribe((data: any) => {
+    this.restProvider.generateSmsCode(this.username, 'verify').subscribe((data: any) => {
       setTimeout(() => {
         this.canResend = true;
       }, 60000);

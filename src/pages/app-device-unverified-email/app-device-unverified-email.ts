@@ -12,16 +12,15 @@ import { DataProvider } from "@providers/data/data";
   defaultHistory: ['AppDeviceUnverifiedPage']
 })
 @Component({
-  selector: 'page-app-device-unverified-sms',
-  templateUrl: 'app-device-unverified-sms.html',
+  selector: 'page-app-device-unverified-email',
+  templateUrl: 'app-device-unverified-email.html',
 })
-export class AppDeviceUnverifiedSmsPage {
+export class AppDeviceUnverifiedEmailPage {
 
   private username: string;
   public sendError: boolean = false;
 
   public validationCode: string = "";
-	public canResend: boolean = false;
 
   constructor(
   	public navCtrl: NavController,
@@ -39,15 +38,12 @@ export class AppDeviceUnverifiedSmsPage {
   ionViewDidLoad() { this.sendCode(); }
 
   public sendCode() {
-    this.canResend = false;
     this.sendError = false;
-    this.restProvider.generateSmsCode(this.username, 'device').subscribe(() => {
-      setTimeout(() => {
-        this.canResend = true;
-      }, 60000);
-    }, () => {
-      this.sendError = true;
-    });
+    this.restProvider
+      .generateEmailCode(this.username, 'device')
+      .subscribe(() => {}, () => {
+        this.sendError = true;
+      });
   }
 
   public validate() {
@@ -59,7 +55,7 @@ export class AppDeviceUnverifiedSmsPage {
     loading.present();
 
   	this.authProvider
-        .confirmToken(this.validationCode, "sms_device")
+        .confirmToken(this.validationCode, "email_device")
         .pipe(finalize(() => loading.dismiss()))
       	.subscribe((data: any) => {
       		if(data.status == 'ok') {

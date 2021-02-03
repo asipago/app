@@ -28,22 +28,23 @@ export class DataProvider {
       user.address,
       user.phone_a,
       user.phone_b,
-      user.email,
       user.country,
       user.state,
       user.zip,
       user.active,
       user.username,
+      user.image,
+      user.email,
       user.deletedAt,
       user.deletedReason,
       user.createdAt,
       user.updatedAt
     );
     this.setSettings(new Settings(
-      user.settings.noti_payment_pending,
-      user.settings.noti_payment_received,
-      user.settings.check_transaction_pin,
-      user.settings.check_user_device
+      user.settings ? !!user.settings.noti_payment_pending: false,
+      user.settings ? !!user.settings.noti_payment_received: false,
+      user.settings ? !!user.settings.check_transaction_pin: false,
+      user.settings ? !!user.settings.check_user_device: false
     ));
 	}
 
@@ -137,6 +138,10 @@ export class DataProvider {
 
   getUserEmail(): string {
     return this.user.email;
+  }
+
+  getUserImage(): string {
+    return this.user.image;
   }
 
   getUserBirthday(): string {

@@ -8,7 +8,7 @@ import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 import { finalize } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 
-import { AuthProvider } from '@providers/auth/auth';
+//import { AuthProvider } from '@providers/auth/auth';
 import { RestProvider } from '@providers/rest/rest';
 import { DataProvider } from '@providers/data/data';
 import { CardInterface } from '@interfaces/card-interface';

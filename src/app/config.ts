@@ -3,14 +3,14 @@ export const FAIO_NAME: string = "auth_faio",
 			 TOKEN_NAME: string = "jwt_token",
 			 PROFILE_NAME: string = "profile_image",
 			 BANK_LIST: string = "bank_list",
-			 CONTACT_LIST: string = "contact_list",
-			 CONTACT_FLIST: string = "contact_list_filter",
+			 //CONTACT_LIST: string = "contact_list",
+			 CONTACT_LIST_ASIPAGO: string = "contact_list_asipago",
 			 DOCUMENT_NAME: string = "current_document";
 
+export const IMAGE_URL: string = "https://api.asipago.com/images";
+export const SERVER_URL: string = "https://api.asipago.com";
 export const HOSTING_URL: string = "https://www.asipago.com";
 
-export const SERVER_URL: string = "https://api.asipago.com";
-//export const SERVER_URL: string = "http://192.168.1.7:1337";
 export const SERVER_GEO_API: string = SERVER_URL + "/geolocation";
 
 /* export const CURRENCY_SYMBOL: string = "BS";

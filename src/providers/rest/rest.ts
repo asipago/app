@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { SERVER_URL } from "@app/config";
+import { IMAGE_URL, SERVER_URL } from "@app/config";
 
 import { CardModel } from '@models/card-model';
-import { CardInterface } from '@interfaces/card-interface';
+//import { CardInterface } from '@interfaces/card-interface';
 
 export interface walletFunds {
 	funds: number;
@@ -30,10 +30,6 @@ export class RestProvider {
 		return this.httpClient.get<any>(`${SERVER_URL}/wallets/related`).toPromise();
 	}
 
-	async getUserPic(url: string) {
-		return this.httpClient.get<any>(url).toPromise();
-	}
-
 	setPreferences(values: any) {
 		return this.httpClient.post(`${SERVER_URL}/users/updateSettings`, values);
 	}
@@ -51,7 +47,7 @@ export class RestProvider {
 	}*/
 
 	setPictureProfile(imageBase64: string) {
-		return this.httpClient.post(`${SERVER_URL}/avatar`, {
+		return this.httpClient.post(`${SERVER_URL}/user/avatar`, {
 			image: imageBase64
 		});
 	}
@@ -65,9 +61,15 @@ export class RestProvider {
 		});
 	}
 
-	generateCode(username: string, smstype: string) {
+	generateSmsCode(username: string, smstype: string) {
 		return this.httpClient.post(`${SERVER_URL}/auth/sendSms`, {
 			user: username, type: smstype
+		}, { responseType: 'json' });
+	}
+	
+	generateEmailCode(username: string, emailtype: string) {
+		return this.httpClient.post(`${SERVER_URL}/auth/sendEmail`, {
+			user: username, type: emailtype
 		}, { responseType: 'json' });
 	}
 
@@ -323,6 +325,14 @@ export class RestProvider {
 		return this.httpClient.post(`${SERVER_URL}/users/filterNumbers`, {
 			list: values.join(",")
 		});
+	}
+
+	async getUserProfileUrl(number: string) {
+		let err = false;
+		const user = await this.httpClient.get<any>(`${SERVER_URL}/users/findByNumber`, {
+			params: { phone: number }
+		}).toPromise().catch(() => err = true);
+		return `${IMAGE_URL}/${err ? 'undefined' : user.image}.jpeg`;
 	}
 
 	/* SETTINGS */

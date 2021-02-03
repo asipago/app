@@ -23,18 +23,24 @@
 	<h4 text-center *ngIf="isLoading">{{ loadingText }}</h4>
 
 	<ion-grid text-center *ngIf="!isLoading">
-
 		<ion-row align-items-center>
 			<ion-col>
 
-				<div *ngIf="contactList == 0">
+				<div *ngIf="!alreadySync">
+					<h2>Sincroniza tu lista de contactos con asipago, recuerda que esto puede demorar un poco</h2>
+					<button ion-button block color="turquoise" (click)="refresh()">
+						¡Sincronizar Ahora!
+					</button>
+				</div>
+
+				<div *ngIf="contactList == 0 && alreadySync">
 					<h2>Al parecer ninguno de tus contactos utiliza nuestro servicio</h2>
 					<button ion-button block color="turquoise" (click)="shareLink()">
 						¡Invítalos a unirse!
 					</button>
 				</div>
 
-				<ion-list>
+				<ion-list *ngIf="contactList == 0 && alreadySync">
 					<ion-item *ngFor="let contact of contactList" tappable (click)="selectContact(contact)">
 						<ion-avatar item-start>
 							<img [src]="contact.image" />
@@ -46,7 +52,6 @@
 
 			</ion-col>
 		</ion-row>
-
 	</ion-grid>
-
+	
 </ion-content>

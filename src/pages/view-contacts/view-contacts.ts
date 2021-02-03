@@ -9,7 +9,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { DataProvider } from "@providers/data/data";
 import { RestProvider } from "@providers/rest/rest";
 
-import { SERVER_URL, CONTACT_LIST, CONTACT_FLIST } from "@app/config";
+import { CONTACT_LIST_ASIPAGO, HOSTING_URL } from "@app/config";
 
 @IonicPage()
 @Component({
@@ -24,11 +24,13 @@ export class ViewContactsPage {
   public isLoading: boolean;
   public loadingText: string;
 
-  public avatarUrl: string;
-  public timestamp: number;
+  //public avatarUrl: string;
+  //public timestamp: number;
 
   private filterCarrier: string;
   private selectedCarrier: string;
+
+  public alreadySync: boolean;
 
   constructor(
     public storage: Storage,
@@ -45,107 +47,41 @@ export class ViewContactsPage {
     this.filterCarrier = navParams.get('filterCarrier');
     this.showOnlyRegistered = navParams.get('filterContacts');
 
-    this.avatarUrl = `${SERVER_URL}/avatar/p_`;
-    this.timestamp = new Date().getTime();
-
     this.isLoading = true;
     this.loadingText = "Cargando";
 
-    this.loadContacts();
+    this.alreadySync = true;
+    this.preloadContacts();
+  }
+
+  private async preloadContacts() {
+    if (this.showOnlyRegistered) {
+      const contactList = await this.storage.get(CONTACT_LIST_ASIPAGO);
+      if (contactList) {
+        this.contactList = JSON.parse(contactList);
+        this.alreadySync = true;
+      } this.isLoading = false;
+    } else {
+      this.loadContacts();
+    }
   }
 
   private async loadContacts() {
-    const contactList = await this.storage.get(CONTACT_LIST);
-    if (contactList) {
-      this.contactList = JSON.parse(contactList);
-      if (this.filterCarrier) this.filterCarrierList();
-      this.isLoading = this.showOnlyRegistered;
-      if (this.showOnlyRegistered) {
-        const contactListF = await this.storage.get(CONTACT_FLIST);
-        if (contactListF) {
-          this.contactList = JSON.parse(contactListF);
-          this.isLoading = false;
-        } else {
-          this.filterContacts();
-        }
-      }
-    } else {
-      this.refresh();
-    }
-  }
-
-  private filterSelectedCarrier(contact: any) {
-    if (contact.number.match(/^(\+58)?[\D]?\(?0?(412|414|424|416|426)/)) {
-      switch (this.selectedCarrier) {
-        case 'movistar': return contact.number.match(/^(\+58)?[\D]?\(?0?(414|424)/);
-        case 'digitel': return contact.number.match(/^(\+58)?[\D]?\(?0?(412)/);
-        case 'movilnet': return contact.number.match(/^(\+58)?[\D]?\(?0?(416|426)/);
-      }
-    } else if (contact.number.match(/^(412|414|424|416|426)/)) {
-      switch (this.selectedCarrier) {
-        case 'movistar': return contact.number.match(/^(414|424)/);
-        case 'digitel': return contact.number.match(/^(412)/);
-        case 'movilnet': return contact.number.match(/^(416|426)/);
-      }
-    }
-  }
-
-  private filterContacts() {
-    this.loadingText = "Sincronizando"
-
-    //let values: any[] = [];
-    let newContactList = [];
+    const self = this;
     
-    /*for (let contact of this.contactList) {
-      values.push(contact["number"]);
-    }*/
-
-    let values = this.contactList.map(a => a.number);
-
-    this.restProvider
-      .filterContacts(values)
-      .subscribe((phones: any) => {
-        this.contactList.forEach((contact, index) => {
-          if (phones.indexOf(contact.number) > -1)
-            newContactList.push(contact);
-        });
-        
-        this.isLoading = false
-        //this.contactList = newContactList;
-    
-        this.contactList = newContactList.filter((v, i, a) => a.findIndex(t => (t.name === v.name)) === i);
-        this.storage.set(CONTACT_FLIST, JSON.stringify(this.contactList));
-
-      }, err => this.isLoading = false);
-  }
-
-  private formatNumber(phone: string, onlyNumbers: boolean) {
-    phone = phone.replace(/^(\+58)?[\D]?\(?0?/, '');
-    phone = phone.replace(/\D/g, '');
-    return onlyNumbers ? phone : phone.replace(/^(\d{3})(\d{3})(\d{4}).*/, '($1) $2-$3');
-  }
-
-  private filterCarrierList() {
-    let filterList = [];
-    this.contactList.forEach(contact => {
-      if(this.filterSelectedCarrier(contact)) {
-        filterList.push(contact);
-      }
-    });
-    this.contactList = filterList;
-  }
-
-  refresh() {
     this.loadingText = "Cargando...";
     this.contactList.length = 0;
-    
+
+    setTimeout(() => {
+      self.loadingText = "Recuerda que la primera carga puede demorar un poco mas de lo esperado, por favor se paciente..."
+    }, 5000);
+
     this.contacts.find(["displayName", "name", "phoneNumbers"], {
       multiple: true, hasPhoneNumber: true
     }).then(async (contacts: Contact[]) => {
       for (let i = 0; i < contacts.length; i++) {
-        if (contacts[i].phoneNumbers == null || contacts[i].phoneNumbers == undefined || contacts[i].phoneNumbers.length == 0) {
-          //Do nothing
-        } else if (contacts[i].name == undefined || contacts[i].name.formatted == undefined || contacts[i].name.formatted == null || contacts[i].name.formatted == '') {
+        if (contacts[i].phoneNumbers == null || contacts[i].phoneNumbers == undefined || contacts[i].phoneNumbers.length == 0 ||
+          contacts[i].name == undefined || contacts[i].name.formatted == undefined || contacts[i].name.formatted == null || contacts[i].name.formatted == '') {
           //Do nothing
         } else {
           for (let number of contacts[i].phoneNumbers) {
@@ -157,36 +93,94 @@ export class ViewContactsPage {
             contact["phone"] = this.formatNumber(number.value, false);
             contact["number"] = this.formatNumber(number.value, true);
 
-            const imageUrl = this.avatarUrl + contact.number + "?" + this.timestamp;
-            const image = await this.storage.get("user_image_" + contact.number);
+            contact["image"] = await this.storage.get("user_image_" + contact.number);
 
-            contact["image"] = !image ? imageUrl : image;
+            if (!contact["image"] || typeof contact["image"] == 'undefined') {
+              contact["image"] = await this.restProvider.getUserProfileUrl(contact["number"]);
+              await this.storage.set("user_image_" + contact.number, contact["image"]);
+            }
 
-            this.toDataUrl(imageUrl, "user_image_" + contact.number);
-            
             this.contactList.push(contact);
           }
-
-          this.storage.set(CONTACT_LIST, JSON.stringify(this.contactList));
         }
       }
 
-      if (this.filterCarrier)
-        this.filterCarrierList();
+      if (this.filterCarrier) {
+        let filterList = [];
+        for (const contact of this.contactList) {
+          if (this.filterSelectedCarrier(`${contact.number}`))
+            filterList.push(contact);
+        }
+        this.contactList = filterList;
+      }
 
       this.isLoading = this.showOnlyRegistered;
-      if (this.showOnlyRegistered) {
-        this.filterContacts();
-      }
     });
   }
 
-  selectContact(item) {
-    this.viewCtrl.dismiss(item);
+  private filterSelectedCarrier(number: string) {
+    if (number.match(/^(\+58)?[\D]?\(?0?(412|414|424|416|426)/)) {
+      switch (this.selectedCarrier) {
+        case 'movistar': return number.match(/^(\+58)?[\D]?\(?0?(414|424)/);
+        case 'digitel': return number.match(/^(\+58)?[\D]?\(?0?(412)/);
+        case 'movilnet': return number.match(/^(\+58)?[\D]?\(?0?(416|426)/);
+      }
+    } else if (number.match(/^(412|414|424|416|426)/)) {
+      switch (this.selectedCarrier) {
+        case 'movistar': return number.match(/^(414|424)/);
+        case 'digitel': return number.match(/^(412)/);
+        case 'movilnet': return number.match(/^(416|426)/);
+      }
+    }
+  }
+
+  private formatNumber(phone: string, onlyNumbers: boolean) {
+    phone = phone.replace(/^(\+58)?[\D]?\(?0?/, '');
+    phone = phone.replace(/\D/g, '');
+    phone = phone.replace(/^0+/, '');
+    return onlyNumbers ? phone : phone.replace(/^(\d{3})(\d{3})(\d{4}).*/, '($1) $2-$3');
+  }
+
+  async refresh() {    
+    this.loadContacts();
+    if (this.showOnlyRegistered) {
+      const self = this;
+      this.loadingText = "Sincronizando";
+
+      setTimeout(() => self.loadingText = "Finalizando", 5000);
+ 
+      let values = this.contactList.map(a => a.number);
+  
+      this.restProvider
+        .filterContacts(values)
+        .subscribe((users: any) => {
+          let contactList = []; 
+
+          this.contactList.forEach((contact, index) => {
+            for (let i = 0; i < users.length; i++) {
+              const user = users[i];
+              if (user.phone.indexOf(contact.number) > -1) {
+                contact.image = user.image;
+                contactList.push(contact);
+              }
+            }
+          });
+  
+          this.isLoading = false;
+          this.alreadySync = true;
+  
+          this.contactList.length = 0;
+          //this.contactList = contactList;
+          this.contactList = contactList.filter((v, i, a) => a.findIndex(t => (t.name === v.name)) === i);
+
+          this.storage.set(CONTACT_LIST_ASIPAGO, JSON.stringify(contactList));
+  
+        }, err => this.isLoading = false);
+    }
   }
 
   shareLink() {
-    let link = "app.asipago.com";
+    let link = HOSTING_URL;
 
     if (this.platform.is('android')) {
       link = "https://play.google.com/store/apps/details?id=com.asipago.app";
@@ -200,22 +194,4 @@ export class ViewContactsPage {
     this.socialSharing.share(`${username} te ha invitado a utilizar asipago. Recibe, procesa y envía dinero, ¡donde y cuando quieras!`, null, null, link);
   }
 
-  private async toDataUrl(url: string, key: string) {
-    const response = await this.restProvider.getUserPic(url);
-
-    const toDownload: Blob = new Blob(
-      [ response.arrayBuffer() ],
-      { type: 'image/png' }
-    );
-
-    //return new Promise((resolve, reject) => {
-      let reader = new FileReader();
-      reader.onload = () => {
-        //const dataUrl: any = reader.result;
-        //resolve(dataUrl.split(',')[1]);
-        this.storage.set(key, reader.result);
-      };
-      reader.readAsDataURL(toDownload)
-    //});
-  }
 }

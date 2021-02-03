@@ -26,7 +26,7 @@
 						<ion-grid>
 							<ion-row>
 								<ion-col align-self-start text-left>
-									<p>{{ link.amount | currency:currencySymbol:'code':'1.2-2':'es' }}</p>
+									<p>{{ link.amount | formatCurrency }}</p>
 									<p><small>{{ link.createdAt }}</small></p>
 								</ion-col>
 								<ion-col align-self-end text-right>

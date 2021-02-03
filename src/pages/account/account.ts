@@ -14,7 +14,7 @@ import { RestProvider } from "@providers/rest/rest";
 import { DataProvider } from "@providers/data/data";
 import { AuthProvider } from "@providers/auth/auth";
 
-import { SERVER_URL, PROFILE_NAME } from "@app/config";
+import { PROFILE_NAME, IMAGE_URL } from "@app/config";
 
 @IonicPage({
   defaultHistory: ['AccountResumePage']
@@ -90,12 +90,12 @@ export class AccountPage {
       this.imgURL = image;
       this.fetchNewImage(false);
     }).catch(() => {
-      this.imgURL = `${SERVER_URL}/avatar/${this.dataProvider.getUserId()}?` + new Date().getTime();
+      this.fetchNewImage(true);
     });
   }
 
   private fetchNewImage(triggerEvent: boolean) {
-    const imageUrl = `${SERVER_URL}/avatar/${this.dataProvider.getUserId()}?` + new Date().getTime();
+    const imageUrl = `${IMAGE_URL}/${this.dataProvider.getUserImage()}?${new Date().getTime()}`;
     this.getBase64ImageFromURL(imageUrl).subscribe((base64data: string) => {
       this.imgURL = base64data;
       this.storage.set(this.imgProfileName, this.imgURL).then(() => {
@@ -198,7 +198,7 @@ export class AccountPage {
     this.restProvider
       .setPictureProfile(imageData)
       .pipe(finalize(() => loading.dismiss()))
-      .subscribe((data: any) => {
+      .subscribe(() => {
         this.fetchNewImage(true);
       }, err => {
         this.showToast("Error, por favor intente de nuevo...")

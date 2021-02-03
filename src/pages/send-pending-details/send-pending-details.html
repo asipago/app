@@ -24,12 +24,12 @@
 
 			  <ion-item no-lines>
 			    <p>Monto:</p>
-			    <h1 ion-text color="dark">{{ link.amount | currency:currencySymbol:'code':'1.2-2':'es' }}</h1>
+			    <h1 ion-text color="dark">{{ link.amount | formatCurrency }}</h1>
 			  </ion-item>
 
 			  <ion-item no-lines>
 			    <p>Destinatario recibira:</p>
-			    <p ion-text color="dark">{{ link.finalAmount | currency:currencySymbol:'code':'1.2-2':'es' }}</p>
+			    <p ion-text color="dark">{{ link.finalAmount | formatCurrency }}</p>
 			  </ion-item>
 
 			  <ion-item no-lines>

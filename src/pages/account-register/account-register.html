@@ -52,7 +52,7 @@
 
 						<ion-item>
 							<ion-label floating>Tipo de Documento</ion-label>
-							<ion-select formControlName="nationality" interface="popover">
+							<ion-select formControlName="nationality" interface="action-sheet" cancelText="Cancelar">
 								<ion-option value="V">V - Venezolano/a</ion-option>
 								<ion-option value="E">E - Extranjero/a</ion-option>
 								<ion-option value="R">R - Residente</ion-option>
@@ -88,13 +88,11 @@
 							<p ion-text text-wrap color="danger">El número telefónico ya se encuentra registrado</p>
 						</ion-item>
 
-						<ion-item
-							*ngIf="mainForm.get('phone').hasError('required') && mainForm.get('phone').touched">
+						<ion-item *ngIf="mainForm.get('phone').hasError('required') && mainForm.get('phone').touched">
 							<p ion-text text-wrap color="danger">Este campo es requerido</p>
 						</ion-item>
 
-						<ion-item
-							*ngIf="mainForm.get('phone').hasError('pattern') && mainForm.get('phone').touched">
+						<ion-item *ngIf="mainForm.get('phone').hasError('pattern') && mainForm.get('phone').touched">
 							<p ion-text text-wrap color="danger">Ingrese un número válido</p>
 						</ion-item>
 
@@ -274,7 +272,8 @@
 				</ion-col>
 			</ion-row>
 
-			<ion-row justify-content-center margin-top margin-bottom *ngIf="onError.document || onError.email || onError.username || onError.phone">
+			<ion-row justify-content-center margin-top margin-bottom
+				*ngIf="onError.document || onError.email || onError.username || onError.phone">
 				<ion-col align-self-center>
 					<p ion-text text-wrap color="danger">
 						Hay errores al procesar tu registro, por favor verifica los datos e intenta de nuevo

@@ -7,7 +7,7 @@
       </button>
 	  <h4 ion-text no-margin color="light">
 		  <small>DISPONIBLE</small><br/>
-		  {{ availableFunds | currency:currencySymbol:'code':'1.2-2':'es' }}
+		  {{ availableFunds | formatCurrency }}
 	  </h4>
       <button ion-button icon-only clear color="light" class="hidden">
         <ion-icon name="menu"></ion-icon>
@@ -36,12 +36,12 @@
 
 			  <ion-item>
 			    <p>Monto:</p>
-			    <h1 ion-text color="dark">{{ amount | currency:currencySymbol:'code':'1.2-2':'es' }}</h1>
+			    <h1 ion-text color="dark">{{ amount | formatCurrency }}</h1>
 			  </ion-item>
 
 			  <ion-item>
 			    <p>Destinatario recibira:</p>
-			    <p ion-text color="dark">{{ finalAmount | currency:currencySymbol:'code':'1.2-2':'es' }}</p>
+			    <p ion-text color="dark">{{ finalAmount | formatCurrency }}</p>
 			  </ion-item>
 
 			  <ion-item>
