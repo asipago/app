@@ -5,7 +5,8 @@ export const FAIO_NAME: string = "auth_faio",
 			 BANK_LIST: string = "bank_list",
 			 //CONTACT_LIST: string = "contact_list",
 			 CONTACT_LIST_ASIPAGO: string = "contact_list_asipago",
-			 DOCUMENT_NAME: string = "current_document";
+			 DOCUMENT_NAME: string = "current_document",
+			 REGEX_EMAIL: RegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,8}$/i;
 
 export const IMAGE_URL: string = "https://api.asipago.com/images";
 export const SERVER_URL: string = "https://api.asipago.com";

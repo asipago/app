@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpResponse, HttpErrorResponse, HttpHandler, HttpRequest, HttpEvent } from '@angular/common/http';
+import { HttpInterceptor, HttpErrorResponse, HttpHandler, HttpRequest, HttpEvent } from '@angular/common/http';
 
 import { Storage } from "@ionic/storage";
 import { Observable } from 'rxjs';
 
 import { DataProvider } from '@providers/data/data';
 import { SERVER_URL, TOKEN_NAME, SERVER_GEO_API, DOCUMENT_NAME } from '@app/config';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -54,8 +55,28 @@ export class AuthInterceptor implements HttpInterceptor {
                 return req;
             }
         });
-        
+
         return httpRequest.mergeMap((req) => {
+            return next.handle(req).pipe(
+                catchError(
+                    err =>
+                        new Observable<HttpEvent<any>>(observer => {
+                            if (err instanceof HttpErrorResponse) {
+                                const errResp = <HttpErrorResponse>err;
+                                if ((errResp.error.err == "Invalid Token" ||
+                                    errResp.error.err == "Unauthorized Access") &&
+                                    req.url !== `${SERVER_URL}/auth/session`) {
+                                        console.log("redirect")
+                                    //this.router.navigate(['entrar']);
+                                }
+                            }
+                            observer.error(err);
+                            observer.complete();
+                        })
+                )
+            )
+        });
+        /* return httpRequest.mergeMap((req) => {
             return next.handle(req).do((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
                     // console.log("response ok");
@@ -69,7 +90,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     }
                 }
             });
-        });
+        }); */
     }
 
     getValues() {

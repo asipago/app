@@ -4,16 +4,13 @@ import { App, Platform, Nav, AlertController, ToastController } from 'ionic-angu
 import { Deeplinks } from '@ionic-native/deeplinks';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Firebase } from '@ionic-native/firebase';
 
-import { tap } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 
 import { AuthProvider } from '@providers/auth/auth';
 import { RestProvider } from '@providers/rest/rest';
-
-import { FcmProvider } from '@providers/fcm/fcm';
 import { DataProvider } from '@providers/data/data';
+import { FcmProvider } from '@providers/fcm/fcm';
 
 import { SERVER_URL, PROFILE_NAME } from "@app/config";
 import { animateToRight, animateToLeft, expandAnimation } from '@app/animations';
@@ -38,6 +35,7 @@ export class MyApp {
 
   // private activePage: any;
   private firstLoad: boolean = true;
+  private dialogSessionOpened: boolean = false;
 
   public showSubmenuA: boolean = false;
   public showSubmenuB: boolean = false;
@@ -75,7 +73,6 @@ export class MyApp {
     private readonly alertCtrl: AlertController,
     public readonly authProvider: AuthProvider,
     public readonly restProvider: RestProvider,
-    public firebaseNative: Firebase,
     public dataProvider: DataProvider,
     public storage: Storage,
     public fcm: FcmProvider
@@ -90,36 +87,33 @@ export class MyApp {
       this.statusBar.styleLightContent();
 
       this.fcm.getToken();
-      this.fcm.listenToNotifications().pipe(
-        tap(object => {
-          /* console.log(JSON.stringify(object)); */
-          if (object.tap) {
-            let page: string;
-            switch (object.type) {
-              case "send_money": case "process_link":
-                page = "MovementsPage";
-                break;
+      this.fcm.eventListener.subscribe(object => {
+        if (object.tap) {
+          let page: string;
+          switch (object.type) {
+            case "send_money": case "process_link":
+              page = "MovementsPage";
+              break;
 
-              case "send_payment":
-                page = "MovementsPendingPage";
-                break;
-            }
-            this.nav.setRoot(page);
-          } else {
-            const toast = this.toastCtrl.create({
-              message: object.body,
-              duration: 3000
-            });
-            toast.present();
+            case "send_payment":
+              page = "MovementsPendingPage";
+              break;
           }
-        })
-      ).subscribe();
+          this.nav.setRoot(page);
+        } else {
+          const toast = this.toastCtrl.create({
+            message: object.body,
+            duration: 3000
+          });
+          toast.present();
+        }
+      });
 
       this.authProvider.authUser.subscribe(event => {
         //console.log(event);
         switch (event) {
           case "invalid-token": case "token-expired": case "logout":
-            if(!this.firstLoad)
+            if (!this.firstLoad)
               this.rootPage = 'AccountLoginPage';
             break;
 
@@ -164,6 +158,29 @@ export class MyApp {
         this.firstLoad = false;
       });
 
+      this.authProvider.sessionEvent.subscribe(value => {
+        if (value && !this.dialogSessionOpened) {
+          this.dialogSessionOpened = true;
+          const sessionDialog = this.alertCtrl.create({
+            title: 'La sesión pronto se cerrará',
+            message: '¿Quieres mantener la sesión activa?',
+            buttons: [{
+              text: 'Cerrar Sesión',
+              handler: () => {
+                this.authProvider.logout();
+              }
+            }, {
+              text: 'Continuar',
+              handler: () => {
+                this.dialogSessionOpened = false;
+                this.authProvider.refresh();
+              }
+            }]
+          });
+          sessionDialog.present();
+        }
+      });
+
       this.deeplinks.route({
         '/enlace/:code': 'ViewLinkConfirmPage',
         '/validar/:type/:token': 'AppConfirmTokenPage'
@@ -182,7 +199,7 @@ export class MyApp {
         if (nav.canGoBack()) {
           nav.pop();
         } else {
-          switch(activeView.name) {
+          switch (activeView.name) {
             case 'AccountResumePage': default:
               const alert = this.alertCtrl.create({
                 title: 'Cerrar asipago',
@@ -190,7 +207,7 @@ export class MyApp {
                 buttons: [{
                   text: 'Cancelar',
                   role: 'cancel',
-                  handler: () => {}
+                  handler: () => { }
                 }, {
                   text: 'Salir',
                   handler: () => {
@@ -251,7 +268,7 @@ export class MyApp {
           rif: data[i].rif,
           name: data[i].name,
           alias: data[i].alias,
-          url: `${SERVER_URL}/avatar/company/${data[i].rif}`
+          url: `${SERVER_URL}/company/${data[i].rif.toUpperCase()}`
         });
       } this.loadingWallets = false;
     });
@@ -305,7 +322,7 @@ export class MyApp {
     this.ownerImageURL = await this.storage.get(`${PROFILE_NAME}`);
 
     if (!this.ownerImageURL) {
-      this.ownerImageURL = `${SERVER_URL}/avatar/${this.dataProvider.getUserId()}?` + new Date().getTime();
+      this.ownerImageURL = `${SERVER_URL}/${this.dataProvider.getUserImage()}?` + new Date().getTime();
     };
 
     if (this.userWallet) {
@@ -321,7 +338,7 @@ export class MyApp {
     } else {
       this.username = this.dataProvider.getCompanyRif();
       this.shortname = this.dataProvider.getCompanyAlias();
-      this.imageURL = `${SERVER_URL}/avatar/company/${this.dataProvider.getCompanyRif()}`;
+      this.imageURL = `${SERVER_URL}/company/${this.dataProvider.getCompanyRif().toUpperCase()}`;
     }
   }
 

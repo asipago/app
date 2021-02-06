@@ -21,11 +21,15 @@ import { SERVER_URL, SERVER_GEO_API, TOKEN_NAME, FAIO_USER, BANK_LIST, DOCUMENT_
 export class AuthProvider {
 
   private readonly jwtTokenName = `${TOKEN_NAME}`;
+  private readonly sessionLimit: number = 840000;
 
   public authUser = new Subject<string>();
+  public sessionEvent = new Subject<boolean>();
 
   private develop: boolean = true;
   private deviceData: DeviceModel;
+  
+  private sessionInterval: any;
 
   constructor(
     public platform: Platform,
@@ -61,6 +65,19 @@ export class AuthProvider {
       }
     });
   }*/
+
+  private sessionTimer() {
+    if (this.sessionInterval) clearInterval(this.sessionInterval);
+    this.sessionInterval = setInterval(() => this.sessionEvent.next(true), this.sessionLimit);
+  }
+
+  public async refresh() {
+    const newToken = await this.httpClient.get<{ token: string }>(`${SERVER_URL}/auth/refresh`).toPromise();
+    if (newToken) {
+      localStorage.setItem(this.jwtTokenName, newToken.token);
+      this.sessionTimer();
+    }
+  }
 
   autoLogin(jwt) {
     if (this.isLoggedIn()) {
@@ -141,6 +158,7 @@ export class AuthProvider {
   }
 
   logout() {
+    clearInterval(this.sessionInterval);
     this.storage.remove(this.jwtTokenName).then(() => this.authUser.next('logout'));
   }
 
@@ -181,6 +199,8 @@ export class AuthProvider {
   
     const bankAccounts = await this.restProvider.getBanksInfo().toPromise();
     await this.storage.set(BANK_LIST, JSON.stringify(bankAccounts));
+
+    this.sessionTimer();
   }
 
   async switchWallet(value: string){

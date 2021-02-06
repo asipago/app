@@ -6,7 +6,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
-
 import { SMS } from '@ionic-native/sms';
 import { Crop } from '@ionic-native/crop';
 import { Base64 } from '@ionic-native/base64';
@@ -25,12 +24,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 
-// import { ContactsMocks } from '@ionic-native-mocks/contacts';
-
-import { Firebase } from '@ionic-native/firebase';
-
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/v4";
 
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { CustomFormsModule } from 'ng2-validation';
@@ -38,6 +32,7 @@ import { CustomFormsModule } from 'ng2-validation';
 import { AuthProvider } from '@providers/auth/auth';
 import { RestProvider } from '@providers/rest/rest';
 import { DataProvider } from '@providers/data/data';
+import { FcmProvider } from '@providers/fcm/fcm';
 
 import { AuthInterceptor } from '@providers/auth/interceptor';
 
@@ -49,19 +44,16 @@ import localeEs from '@angular/common/locales/es';
 
 import { MyApp } from './app.component';
 
-// import { TOKEN_NAME } from "./config";
-import { FcmProvider } from '../providers/fcm/fcm';
-
 registerLocaleData(localeEs);
 
-const config = {
+/* const config = {
   apiKey: "AIzaSyCeRHoaSh4r921Rp7CkkvmlLPenAgMh9Wg",
   authDomain: "asipago-c91eb.firebaseapp.com",
   databaseURL: "https://asipago-c91eb.firebaseio.com",
   projectId: "asipago-c91eb",
   storageBucket: "asipago-c91eb.appspot.com",
   messagingSenderId: "306274884925"
-};
+}; */
 
 @NgModule({
   declarations: [
@@ -75,8 +67,6 @@ const config = {
     NgxQRCodeModule,
     HttpClientModule,
     CustomFormsModule,
-    AngularFirestoreModule,
-    AngularFireModule.initializeApp(config), 
     IonicModule.forRoot(MyApp, {
       preloadModules: true,
       backButtonText: 'Volver',
@@ -97,6 +87,7 @@ const config = {
     MyApp
   ],
   providers: [
+    FCM,
     SMS,
     Crop,
     Base64,
@@ -117,7 +108,6 @@ const config = {
     BarcodeScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    Firebase,
     FcmProvider,
     RestProvider,
     AuthProvider,

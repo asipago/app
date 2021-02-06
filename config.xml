@@ -157,7 +157,6 @@
     <plugin name="cordova-plugin-fingerprint-aio" spec="^1.7.0">
         <variable name="FACEID_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <plugin name="cordova-plugin-firebase-lib" spec="^5.1.1" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="Necesitamos conocer tu ubicación" />
@@ -166,6 +165,5 @@
     <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="5.0.4">
         <variable name="GOOGLE_API_KEY_FOR_ANDROID" value="AIzaSyDmDS8WYY1kEk1SUDTm9tcDHKJpInALVNQ" />
     </plugin>
-    <allow-navigation href="http://localhost:8100" sessionid="fdc7eebd" />
     <allow-navigation href="http://192.168.1.7:8100" />
 </widget>

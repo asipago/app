@@ -1,40 +1,40 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Firebase } from '@ionic-native/firebase';
 import { Platform } from 'ionic-angular';
+import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/v4";
 
-import { SERVER_URL } from '@app/config';
 import { DataProvider } from '../data/data';
+import { Subject } from 'rxjs';
+import { SERVER_URL } from '@app/config';
 
 @Injectable()
 export class FcmProvider {
 
+  public eventListener: Subject<any>;
+
   constructor(
-  	private platform: Platform,
-  	public dataProvider: DataProvider,
-	  public firebaseNative:Firebase,
-    public http: HttpClient
-  ) {}
+    private platform: Platform,
+    public dataProvider: DataProvider,
+    public http: HttpClient,
+    private fcm: FCM
+  ) {
+    this.eventListener = new Subject<any>();
 
-  async getToken() {
-    let token;
-
-    if (this.platform.is('android')) {
-      token = await this.firebaseNative.getToken()
-    }
-
-    if (this.platform.is('ios')) {
-      token = await this.firebaseNative.getToken();
-      await this.firebaseNative.grantPermission();
-    }
-
-    this.http.post(`${SERVER_URL}/store`, {
-    	metadata: token, user: this.dataProvider.getUserName()
-    }).subscribe(data => {}, error => {});
+    this.platform.ready().then(() => {
+      this.fcm.onNotification().subscribe((data) => {
+        this.eventListener.next(data);
+      });
+      this.fcm.requestPushPermission();
+    });
   }
 
-  listenToNotifications() {
-    return this.firebaseNative.onNotificationOpen()
+  public getToken() {
+    this.fcm.getToken().then((token: string) => {
+      this.http.post(`${SERVER_URL}/store`, {
+        metadata: token, user: this.dataProvider.getUserName()
+      }).subscribe(data => {}, error => {});
+    });
   }
+
 }
