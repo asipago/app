@@ -60,6 +60,7 @@ export class DataProvider {
       company.state,
       company.zip,
       company.alias,
+      company.image,
       company.createdAt,
       company.updatedAt
     );
@@ -141,7 +142,7 @@ export class DataProvider {
   }
 
   getUserImage(): string {
-    return this.user.image;
+    return `${this.user.image}.jpeg`;
   }
 
   getUserBirthday(): string {
@@ -174,6 +175,10 @@ export class DataProvider {
 
   getCompanyAlias(): string {
     return this.company.alias;
+  }
+
+  getCompanyImage(): string {
+    return `${this.company.image}.jpeg`;
   }
 
   /* MONEY */

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpErrorResponse, HttpHandler, HttpRequest, HttpEvent } from '@angular/common/http';
 
+import { App } from "ionic-angular"
 import { Storage } from "@ionic/storage";
 import { Observable } from 'rxjs';
 
@@ -12,6 +13,7 @@ import { catchError } from 'rxjs/operators';
 export class AuthInterceptor implements HttpInterceptor {
 
     constructor(
+        public app: App,
         public storage: Storage,
         public dataProvider: DataProvider
     ) { }
@@ -66,8 +68,7 @@ export class AuthInterceptor implements HttpInterceptor {
                                 if ((errResp.error.err == "Invalid Token" ||
                                     errResp.error.err == "Unauthorized Access") &&
                                     req.url !== `${SERVER_URL}/auth/session`) {
-                                        console.log("redirect")
-                                    //this.router.navigate(['entrar']);
+                                        this.app.getRootNav().setRoot('AccountLoginPage');
                                 }
                             }
                             observer.error(err);

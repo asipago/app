@@ -95,7 +95,7 @@ export class AccountPage {
   }
 
   private fetchNewImage(triggerEvent: boolean) {
-    const imageUrl = `${IMAGE_URL}/${this.dataProvider.getUserImage()}?${new Date().getTime()}`;
+    const imageUrl = `${IMAGE_URL}/${this.dataProvider.getUserImage()}?${triggerEvent ? new Date().getTime() : ''}`;
     this.getBase64ImageFromURL(imageUrl).subscribe((base64data: string) => {
       this.imgURL = base64data;
       this.storage.set(this.imgProfileName, this.imgURL).then(() => {

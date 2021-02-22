@@ -15,6 +15,7 @@ export class CompanyModel implements CompanyInterface {
         private _state: string,
         private _zip: string,
         private _alias: string,
+        private _image: string,
         private _createdAt: string,
         private _updatedAt: string
     ){}
@@ -57,6 +58,10 @@ export class CompanyModel implements CompanyInterface {
 
     get alias(): string {
         return this._alias;
+    }
+
+    get image(): string {
+        return this._image;
     }
 
     get createdAt(): string {

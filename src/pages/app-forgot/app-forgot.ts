@@ -48,7 +48,7 @@ export class AppForgotPage {
       .pipe(finalize(() => loading.dismiss()))
       .subscribe(data => {
         this.emailForm = false;
-        this.checkEmail = true
+        this.checkEmail = true;
       }, xhr => {
         if(xhr.error.err == "Available attemps") {
           this.navCtrl.setRoot('AppForgotResetPage', {

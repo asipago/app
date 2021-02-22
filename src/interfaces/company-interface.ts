@@ -9,4 +9,5 @@ export interface CompanyInterface {
     state: string;
     zip: string;
     alias: string;
+    image: string;
 }

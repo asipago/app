@@ -12,7 +12,7 @@ import { RestProvider } from '@providers/rest/rest';
 import { DataProvider } from '@providers/data/data';
 import { FcmProvider } from '@providers/fcm/fcm';
 
-import { SERVER_URL, PROFILE_NAME } from "@app/config";
+import { PROFILE_NAME, IMAGE_URL } from "@app/config";
 import { animateToRight, animateToLeft, expandAnimation } from '@app/animations';
 
 export interface Company {
@@ -142,7 +142,7 @@ export class MyApp {
             break;
 
           case 'update-profile':
-            this.updateMenuValues();
+            this.updateMenuValues(true);
             break;
 
           /* case "switch-wallet":
@@ -241,6 +241,8 @@ export class MyApp {
         }
       });
 
+      this.updateMenuValues();
+
       // loading.dismiss();
       splashScreen.hide();
     });
@@ -268,7 +270,7 @@ export class MyApp {
           rif: data[i].rif,
           name: data[i].name,
           alias: data[i].alias,
-          url: `${SERVER_URL}/company/${data[i].rif.toUpperCase()}`
+          url: `${IMAGE_URL}/company/${data[i].rif.toUpperCase()}`
         });
       } this.loadingWallets = false;
     });
@@ -316,13 +318,17 @@ export class MyApp {
     this.authProvider.logout()
   }
 
-  private async updateMenuValues() {
+  private async updateMenuValues(updateImage?: boolean) {
+    if (!this.dataProvider.getUserName()) {
+      return this.nav.setRoot('AccountResumePage');
+    }
+    
     this.ownerUsername = "@" + this.dataProvider.getUserName();
     this.ownerShortname = this.dataProvider.getUserShortName();
     this.ownerImageURL = await this.storage.get(`${PROFILE_NAME}`);
 
     if (!this.ownerImageURL) {
-      this.ownerImageURL = `${SERVER_URL}/${this.dataProvider.getUserImage()}?` + new Date().getTime();
+      this.ownerImageURL = `${IMAGE_URL}/${this.dataProvider.getUserImage()}?${updateImage ? new Date().getTime() : ''}`;
     };
 
     if (this.userWallet) {
@@ -338,7 +344,7 @@ export class MyApp {
     } else {
       this.username = this.dataProvider.getCompanyRif();
       this.shortname = this.dataProvider.getCompanyAlias();
-      this.imageURL = `${SERVER_URL}/company/${this.dataProvider.getCompanyRif().toUpperCase()}`;
+      this.imageURL = `${IMAGE_URL}/company/${this.dataProvider.getCompanyRif().toUpperCase()}?${updateImage ? new Date().getTime() : ''}`;
     }
   }
 
