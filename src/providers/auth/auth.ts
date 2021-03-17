@@ -26,7 +26,7 @@ export class AuthProvider {
   public authUser = new Subject<string>();
   public sessionEvent = new Subject<boolean>();
 
-  private develop: boolean = true;
+  private develop: boolean = false;
   private deviceData: DeviceModel;
   
   private sessionInterval: any;
